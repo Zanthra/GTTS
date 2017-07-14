@@ -1,0 +1,36 @@
+Version 0.2.1 2017-07-01
+------------------------
+
+Excluded "god-controller" from modified prototypes due
+to minimum speed issues causing error loading into
+Factorio version 0.15.26 .
+
+Version 0.2.0 2017-06-28
+------------------------
+
+Added a load of missing modifications to time ratios, in
+particular changed accumulator Input and Output rates,
+and fixed vehicle power consumption.
+
+Moved the modifications from data-updates to
+data-final-fixes as some mods change crafting speeds
+in their data-updates, such as Angel's modifications
+to Bob's MK 2 Chemical Plants.
+
+Added a wild guess fluid speed modification. Since the
+math beind fluid speeds is pretty obscured, and I don't
+have a good way of testing it, use at your own risk.
+
+
+Version 0.1.1 2017-06-27
+------------------------
+
+First release to mod portal as mod is stable, and many
+of the initial goals are accomplished.
+
+
+Version 0.1.0 2017-06-25
+----------------------
+
+Created mod base and modified a collection of speeds.
+
