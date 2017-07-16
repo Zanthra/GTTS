@@ -6,5 +6,5 @@
   "author": "Zanthra",
   "homepage": "https://forums.factorio.com/viewtopic.php?f=144&t=50281&p=292386#p292386",
   "dependencies": ["base"],
-  "description": "Globally adjust prototype speeds by a given ratio. This can be used along with a change in game speed to run the game at high frame rates, such as 120FPS, or lower frame rates for UPS limited factories.\nReducing the UPS can cause belt compression problems, especially with fast belts like those from Bob's Mods.\nThe game speed adjustments are saved in the file, and your game may run too fast or too slow if this mod is removed or disabled. Use the console command \"/c game.speed = 1\" to reset the game speed to default."
+  "description": "Globally adjust prototype speeds by a given ratio. This is used along with a change in game speed to change the FPS/UPS without change the apparent speed."
 }
