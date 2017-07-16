@@ -4,29 +4,29 @@ GTTC 0.1 2017-06-27
 Mod by Zanthra (zanthra@gmail.com)
 
 This mod's goal is to allow the general speed of one game tick, an update to
-be adjusted. The inital goal of the mod was to allow the game to run at 120FPS
+be adjusted. The initial goal of the mod was to allow the game to run at 120FPS
 or higher to have smoother motion on high refresh rate displays. During
 testing I discovered it also had some benefit to other mods and their relation
 to high speed transport belts like those from Bob's Mods and Factorissimo.
 
 This mod can be used to adjust the speeds of ingame objects to a target 120FPS
 as configured in the mod options. This is by default 120, or twice the standard
-of 60 UPS Factorio nomally runs at. This target frame rate can be set below
+of 60 UPS Factorio normally runs at. This target frame rate can be set below
 60FPS to potentially speed up slow factories, but this may cause problems with
 belt compression and other speed sensitive characteristics. This is almost
 assured with high speed belts like those in Bob's Mods.
 
-Time and speed displays ingame will be innacurate based on the UPS ratio.
+Time and speed displays ingame will be inaccurate based on the UPS ratio.
 Wherever the game uses 1 second as the unit of measurement, for crafting times,
 energy consumption, vehicle speed, shooting speed, etc, 1 second should be read
 as 60 ticks. If your tick rate is 120, and a boiler says it consumes 1.8MW,
 that is 1.8MJ per 60 ticks, or 3.6MJ per adjusted second. The mod balances
-everything so that all standard rations for factorio still work. Train schedules
+everything so that all standard rations for Factorio still work. Train schedules
 on the other hand will always run faster or slower than indicated, as a wait
 time of 60 seconds is 3600 ticks, or only 30 seconds at 120 UPS.
 
 Some things are not adjusted by this mod, some due to a reluctance on my part
-to adjust anything saved in the game file any more than is nescessary to make
+to adjust anything saved in the game file any more than is necessary to make
 the mod easy to add and remove. Hand crafting speeds is one such rate, as there
 is no prototype value, and I would instead have to rely on a game variable. To
 manually adjust hand crafting speeds you can use:
@@ -55,5 +55,8 @@ game speed to match the prototype speed adjustments, the game is saved, this
 mod is removed or disabled, and the game is loaded again, the game speed may
 be out of line with the speed of objects in game. If this happens, simply run
 the command "/c game.speed = 1" to restore the default speed.
+
+There are several reliable mods for adjusting day length, so I have opted not
+to incorporate that feature into this mod.
 
 I do not play multiplayer, so I cannot give any advice.
