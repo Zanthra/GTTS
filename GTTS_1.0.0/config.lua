@@ -1,12 +1,13 @@
---Default time scale targets 120FPS
-gtts_time_scale = 0.5
+
+
+gtts_time_scale = 1.0
 gtts_fluid_speed = false
 
 if settings.startup["gtts-Target-FrameRate"] then
 	gtts_time_scale = 60.0 / settings.startup["gtts-Target-FrameRate"].value
 end
 
-if settings.startup["gtts-wag-fluid-speed"] then
+if settings.startup["gtts-wag-fluid-speed"] == true then
 	gtts_fluid_speed = true
 end
 
@@ -27,10 +28,8 @@ prototype_speeds = {
 	"extension_speed",
 	"max_speed",
 	"braking_force",
-	--"friction_force", 
-	--"air_resistance",
 	"researching_speed",
-	"speed",
+	--"speed", --Adjusted in recursive
 	"movement_speed",
 	"dying_speed",
 	"pollution_absorbtion_absolute",
@@ -48,15 +47,20 @@ prototype_speeds = {
 	"splash_speed",
 	"door_opening_speed",
 	"light_blinking_speed",
+	"engine_starting_speed",
 	"flying_speed",
 	"flying_acceleration",
 	"rising_speed",
 	"particle_horizontal_speed",
 	"particle_horizontal_speed_deviation",
 	"frame_main_scanner_movement_speed",
+	"stop_trigger_speed",
 	}
 
 prototype_durations = {
+	"animation_ticks_per_frame",
+	"weight",
+	"energy_per_hit_point",
 	"life_time",
 	"initial_lifetime",
 	"lifetime_increase_cooldown",
@@ -106,4 +110,15 @@ prototype_power_rates = {
 	"power",
 	"max_transfer",
 	"consumption",
+}
+
+
+prototype_speeds_recursive = {
+	"speed",
+	"starting_vertical_speed",
+	"starting_vertical_speed_deviation",
+}
+
+prototype_durations_recursive = {
+	
 }

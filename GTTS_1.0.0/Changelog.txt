@@ -1,3 +1,14 @@
+Version 1.0.0 2017-07-16
+------------------------
+
+This mod now also adjusts the object weights and the
+energy per hit point of collision damage in order to
+properly adjust the kinetic energy of vehicles.
+
+The mod also now adjusts mining and repair tool
+durability which was based on ticks used.
+
+
 Version 0.2.1 2017-07-01
 ------------------------
 

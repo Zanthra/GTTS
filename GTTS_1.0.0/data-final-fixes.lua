@@ -26,12 +26,30 @@ local function adjust_animation(animation)
 	end
 end
 
---Animations can be several layers deep in tables and the like. In order to find the
---animations deep in the tree, I search all objects for the "frame_count" key. This
---is only present in sprites, and only greater than one in animations, so I adjust
---all animations recursively this way.
+--Some characterstics can be many layers deep in the prototypes tree,
+--and it's best to go through them recursively. I use this sparingly
+--as it's better to put a specific change to the value when something
+--is not working right then to try to put an exception here.
 
-local function adjust_prototype_animations(object)
+local function adjust_prototypes_recursive(object)
+	for _,speed in ipairs(prototype_speeds_recursive) do
+		if object[speed] then
+			if type(object[speed]) == "table" then
+				for _,value in ipairs(object[speed]) do
+					value = value * gtts_time_scale
+				end
+			else
+				object[speed] = object[speed] * gtts_time_scale
+			end
+		end
+	end
+
+	for _,duration in ipairs(prototype_durations_recursive) do
+		if object[speed] then
+			object[speed] = object[speed] * gtts_time_scale
+		end
+	end
+
 	for sub_name,sub_object in pairs(object) do
 		if type(sub_object) == "table" then
 			if sub_object["frame_count"] then
@@ -51,11 +69,11 @@ local function adjust_prototype_animations(object)
 						skip_base_animation = true
 					end
 					if not skip_base_animation then
-						adjust_prototype_animations(sub_object)
+						adjust_prototypes_recursive(sub_object)
 					end
 				else
 					if not (object["distance_per_frame"] and (sub_name == "in_motion" or sub_name == "run_animation")) then
-						adjust_prototype_animations(sub_object)
+						adjust_prototypes_recursive(sub_object)
 					end
 				end
 			end
@@ -97,15 +115,16 @@ local function adjust_speeds()
 					end
 				end
 
-				adjust_prototype_animations(prototype)
+				adjust_prototypes_recursive(prototype)
 
 				if gtts_fluid_speed then
 					if prototype["pressure_to_speed_ratio"] then
 						prototype["pressure_to_speed_ratio"] = prototype["pressure_to_speed_ratio"] * gtts_time_scale
 					end
 				end
+				
 
-				if prototype["type"] and prototype["type"] == "mining_tool" and prototype["durability"] then
+				if prototype["type"] and (prototype["type"] == "mining-tool" or prototype["type"] == "repair-tool") and prototype["durability"] then
 					prototype["durability"] = prototype["durability"] / gtts_time_scale
 				end
 
