@@ -21,11 +21,11 @@ data:extend(
     default_value = true,
   },
 
-  --{
-  --  type = "bool-setting",
-  --  name = "gtts-Reset-GameSpeed",
-  --  setting_type = "runtime-global",
-  --  default_value = false,
-  --}
+  {
+    type = "bool-setting",
+    name = "gtts-Reset-GameSpeed",
+    setting_type = "runtime-global",
+    default_value = false,
+  }
 }
 )

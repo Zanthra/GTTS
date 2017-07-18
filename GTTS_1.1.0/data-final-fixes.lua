@@ -114,7 +114,7 @@ local function adjust_speeds()
 						prototype[duration] = prototype[duration] / gtts_time_scale
 					end
 				end
-
+				
 				adjust_prototypes_recursive(prototype)
 
 				if gtts_fluid_speed then

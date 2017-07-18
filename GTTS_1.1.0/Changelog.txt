@@ -1,3 +1,20 @@
+Version 1.1.0 2017-07-17
+------------------------
+
+Fixed the events related to changing the game speed
+so that it properly updates the game speed when and
+only when the mod settings have changed or the mod
+or game is updated.
+
+No longer adjusts the values of
+
+request_to_open_door_timeout
+flow_length_in_ticks
+
+Due to problems at low target frame rates and the
+minor ingame impact of these values.
+
+
 Version 1.0.1 2017-07-16
 ------------------------
 
@@ -23,6 +40,7 @@ Version 0.2.1 2017-07-01
 Excluded "god-controller" from modified prototypes due
 to minimum speed issues causing error loading into
 Factorio version 0.15.26 .
+
 
 Version 0.2.0 2017-06-28
 ------------------------

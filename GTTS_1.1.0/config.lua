@@ -7,8 +7,8 @@ if settings.startup["gtts-Target-FrameRate"] then
 	gtts_time_scale = 60.0 / settings.startup["gtts-Target-FrameRate"].value
 end
 
-if settings.startup["gtts-wag-fluid-speed"] == true then
-	gtts_fluid_speed = true
+if settings.startup["gtts-fluid-speed"] then
+	gtts_fluid_speed = settings.startup["gtts-fluid-speed"].value
 end
 
 exclude_prototype_types = {
@@ -87,7 +87,6 @@ prototype_durations = {
 	"ticks_to_keep_gun",
 	"ticks_to_stay_in_combat",
 	"structure_animation_movement_cooldown",
-	"request_to_open_door_timeout",
 	"effect_animation_period",
 	"effect_animation_period_deviation",
 	"time_before_removed",
@@ -96,7 +95,11 @@ prototype_durations = {
 	"action_cooldown",
 	"glow_fade_away_duration",
 	"duration_in_ticks",
-	"flow_length_in_ticks",
+	--------------------------------------
+	-- Removed due to incompatabilities --
+	--------------------------------------
+	--"flow_length_in_ticks", --Causes crashes in some situations at low target frame rates
+	--"request_to_open_door_timeout", --Causes robots to get stuck at low target frame rates
 }
 
 prototype_power_rates = {
@@ -111,7 +114,6 @@ prototype_power_rates = {
 	"max_transfer",
 	"consumption",
 }
-
 
 prototype_speeds_recursive = {
 	"speed",

@@ -21,7 +21,7 @@ Wherever the game uses 1 second as the unit of measurement, for crafting times,
 energy consumption, vehicle speed, shooting speed, etc, 1 second should be read
 as 60 ticks. If your tick rate is 120, and a boiler says it consumes 1.8MW,
 that is 1.8MJ per 60 ticks, or 3.6MJ per adjusted second. The mod balances
-everything so that all standard rations for Factorio still work. Train schedules
+everything so that all standard ratios for Factorio still work. Train schedules
 on the other hand will always run faster or slower than indicated, as a wait
 time of 60 seconds is 3600 ticks, or only 30 seconds at 120 UPS.
 
