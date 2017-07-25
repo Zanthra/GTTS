@@ -16,6 +16,11 @@ of 60 UPS Factorio normally runs at. This target frame rate can be set below
 belt compression and other speed sensitive characteristics. This is almost
 assured with high speed belts like those in Bob's Mods.
 
+There is an issue with Nuclear Reactors that can cause them to remain at their
+previous consumption rate even after a change in the prototype information.
+If you have problems with reactors providing too little or too much power, you
+can try deconstructing and reconstructing the reactor buildings themselves.
+
 Time and speed displays ingame will be inaccurate based on the UPS ratio.
 Wherever the game uses 1 second as the unit of measurement, for crafting times,
 energy consumption, vehicle speed, shooting speed, etc, 1 second should be read

@@ -35,8 +35,8 @@ local function adjust_prototypes_recursive(object)
 	for _,speed in ipairs(prototype_speeds_recursive) do
 		if object[speed] then
 			if type(object[speed]) == "table" then
-				for _,value in ipairs(object[speed]) do
-					value = value * gtts_time_scale
+				for index,_ in ipairs(object[speed]) do
+					object[speed][index] = object[speed][index] * gtts_time_scale
 				end
 			else
 				object[speed] = object[speed] * gtts_time_scale
@@ -123,7 +123,6 @@ local function adjust_speeds()
 					end
 				end
 				
-
 				if prototype["type"] and (prototype["type"] == "mining-tool" or prototype["type"] == "repair-tool") and prototype["durability"] then
 					prototype["durability"] = prototype["durability"] / gtts_time_scale
 				end
@@ -181,6 +180,12 @@ local function adjust_speeds()
 						if prototype["energy_source"]["smoke"]["starting_vertical_speed"] then
 							prototype["energy_source"]["smoke"]["starting_vertical_speed"] = prototype["energy_source"]["smoke"]["starting_vertical_speed"] * gtts_time_scale
 						end
+					end
+				end
+
+				if prototype["heat_buffer"] then
+					if prototype["heat_buffer"]["max_transfer"] then
+						prototype["heat_buffer"]["max_transfer"] = adjust_energy(prototype["heat_buffer"]["max_transfer"])
 					end
 				end
 
