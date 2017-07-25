@@ -103,6 +103,7 @@ prototype_durations = {
 }
 
 prototype_power_rates = {
+	"charging_energy",
 	"energy_consumption",
 	"energy_usage",
 	"energy_per_tick",
@@ -112,7 +113,11 @@ prototype_power_rates = {
 	"braking_power",
 	"power",
 	"max_transfer",
+	"production",
 	"consumption",
+	"idle_energy_usage",
+    "lamp_energy_usage",
+    "active_energy_usage",
 }
 
 prototype_speeds_recursive = {

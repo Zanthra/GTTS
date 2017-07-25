@@ -1,8 +1,23 @@
+Version 1.1.1 2017-07-25
+------------------------
+
+Added the following properties to be adjusted as power
+rates used by roboports, solar panels, combinators,
+and the rocket silo.
+
+charging_energy
+production
+idle_energy_usage
+lamp_energy_usage
+active_energy_usage
+
+
 Version 1.1.1 2017-07-24
 ------------------------
 
 Made adjustments to the "heat_buffer" "max_trasfer"
 property of nuclear reactors and heat pipes.
+
 
 Version 1.1.0 2017-07-17
 ------------------------
