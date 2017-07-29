@@ -30,30 +30,11 @@ everything so that all standard ratios for Factorio still work. Train schedules
 on the other hand will always run faster or slower than indicated, as a wait
 time of 60 seconds is 3600 ticks, or only 30 seconds at 120 UPS.
 
-Some things are not adjusted by this mod, some due to a reluctance on my part
-to adjust anything saved in the game file any more than is necessary to make
-the mod easy to add and remove. Hand crafting speeds is one such rate, as there
-is no prototype value, and I would instead have to rely on a game variable. To
-manually adjust hand crafting speeds you can use:
-
-/c game.player.character.character_crafting_speed_modifier = -0.5
-
-Where -0.5 indicates 1/2 crafting speed, 0 would indicate default, 1 would
-indicate double and so on. You can also check or adjust the following values
-from the console.
-
-game.map_settings.pollution.diffusion_ratio
-game.map_settings.pollution.ageing
-game.map_settings.enemy_evolution.time_factor
-game.map_settings.enemy_expansion.min_expansion_cooldown
-game.map_settings.enemy_expansion.max_expansion_cooldown
-game.map_settings.unit_group.min_group_gathering_time
-game.map_settings.unit_group.max_group_gathering_time
-game.map_settings.unit_group.max_wait_time_for_late_members
-
-The problem with doing this automatically is that it is difficult to tell if
-they have already been adjusted or if they were set that way when the map was
-created.
+There are options to adjust the map settings such as pollution spread and
+ageing, biter evolution and expansions, attack formation times, as well as
+hand crafting rates. Disabling these will set the value back to what it was
+when the option was enabled. Interoperability with other mods is not
+guaranteed.
 
 The game speed is stored in the save. This means that if this mod adjusts the
 game speed to match the prototype speed adjustments, the game is saved, this

@@ -3,7 +3,7 @@
 gtts_time_scale = 1.0
 gtts_fluid_speed = false
 
-if settings.startup["gtts-Target-FrameRate"] then
+if settings.startup["gtts-Target-FrameRate"] and settings.startup["gtts-Target-FrameRate"].value >= 6 then
 	gtts_time_scale = 60.0 / settings.startup["gtts-Target-FrameRate"].value
 end
 
@@ -27,6 +27,7 @@ prototype_speeds = {
 	"fluid_usage_per_tick",
 	"extension_speed",
 	"max_speed",
+	"friction_force",
 	"braking_force",
 	"researching_speed",
 	--"speed", --Adjusted in recursive
@@ -55,12 +56,13 @@ prototype_speeds = {
 	"particle_horizontal_speed_deviation",
 	"frame_main_scanner_movement_speed",
 	"stop_trigger_speed",
+	--"energy_per_hit_point",
 	}
 
 prototype_durations = {
 	"animation_ticks_per_frame",
 	"weight",
-	"energy_per_hit_point",
+	"air-resistance",
 	"life_time",
 	"initial_lifetime",
 	"lifetime_increase_cooldown",

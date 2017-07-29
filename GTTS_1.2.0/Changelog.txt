@@ -1,4 +1,14 @@
-Version 1.1.1 2017-07-25
+Version 1.2.0 2017-07-25
+------------------------
+
+Added per map options for adjusting values for pollution
+enemy expansions, evolution, and hand crafting rates.
+
+Changed train properties to more accurately adjust their
+acceleration and collision damage.
+
+
+Version 1.1.2 2017-07-25
 ------------------------
 
 Added the following properties to be adjusted as power
