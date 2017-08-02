@@ -9,7 +9,7 @@ or higher to have smoother motion on high refresh rate displays. During
 testing I discovered it also had some benefit to other mods and their relation
 to high speed transport belts like those from Bob's Mods and Factorissimo.
 
-This mod can be used to adjust the speeds of ingame objects to a target 120FPS
+This mod can be used to adjust the speeds of ingame objects to a target FPS
 as configured in the mod options. This is by default 120, or twice the standard
 of 60 UPS Factorio normally runs at. This target frame rate can be set below
 60FPS to potentially speed up slow factories, but this may cause problems with
