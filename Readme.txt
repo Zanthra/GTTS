@@ -1,4 +1,4 @@
-GTTC 0.1 2017-06-27
+GTTS 1.2.0 2017-06-27
 ====================
 
 Mod by Zanthra (zanthra@gmail.com)

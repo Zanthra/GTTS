@@ -4,8 +4,8 @@
   "factorio_version": "0.15",
   "title": "Global Tick Time Scale",
   "author": "Zanthra",
+  "contact": "zanthra+factoriogtts@gmail.com",
   "homepage": "https://forums.factorio.com/viewtopic.php?f=144&t=50281&p=292386#p292386",
   "dependencies": ["base"],
-  "source": "https://github.com/Zanthra/GTTS",
   "description": "Globally adjust prototype speeds by a given ratio. This is used along with a change in game speed to change the FPS/UPS without changing the apparent speed."
 }
