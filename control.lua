@@ -6,6 +6,43 @@ script.on_configuration_changed(
     end
 )
 
+function WelcomePlayers()
+    for _,player in pairs(game.players) do
+        local notification = player.gui.center.add{type = "frame", name = "GTTS Welcome Notification", direction = "vertical", caption = "Welcome to GTTS"}
+        local notificationtext =
+                        "Welcome to the Global Tick Time Scale mod, if you have not changed the mod settings, \n"..
+                        "it will still be set to the factorio default of 60 FPS. Check the mod options in the \n"..
+                        "game menu where you can configure a target framerate, and also where you can enable \n"..
+                        "map specific options like hand crafting speeds. \n\n"..
+                        "I would recommend trying 30 FPS if using the mod to speed up a slow factory, \n"..
+                        "or 120 FPS for gaming on high refresh rate display if you get good performance. \n\n"..
+                        "The game speed is saved in the save file along with any adjustments in the Map \n"..
+                        "tab under Mod settings. You can set the frame rate back to 60 FPS, and disable \n"..
+                        "all map adjustments then save the game before disabling the mod to avoid any problems. \n\n"..
+                        "Crafting speeds, power rates, and other information based on wall time will display\n"..
+                        "innacurately due to how the prototypes are changed. If running at 30 FPS things will\n"..
+                        "take twice as long as they display, due to the game assuming that one second is 60 ticks.\n"..
+                        "This makes even ratios like 20, 30, or 120 FPS nicer that odd ratios like 42 or 144.\n\n"..
+                        "You can also disable this notification in the mod options. \n\n"..
+                        "For more information visit the factorio forums at: \n"..
+                        "https://forums.factorio.com/viewtopic.php?f=91&t=50281"
+        
+        notification.add{type = "text-box", name = "GTTS Notification", text = notificationtext, word_wrap = true}
+
+        script.on_event(defines.events.on_gui_click, function (event)
+                if event.element.name == "GTTS Notification Close" then
+                    notification.destroy()
+                end
+            end
+        )
+
+        notification.add{type = "button", name = "GTTS Notification Close", caption = "Close", onClick = {id="close_dialog"}}
+    end
+end
+
+
+
+
 function updatePlayerSettings()
     if settings.global["gtts-Adjust-HandCraftingSpeed"].value == true then
         for _,player in pairs(game.players) do
@@ -19,6 +56,10 @@ function updatePlayerSettings()
                 player.character.character_crafting_speed_modifier = 0
             end
         end
+    end
+    if settings.startup["gtts-Welcome"] and (not global["last-welcome-tick"] or (game.tick - global["last-welcome-tick"]) / gtts_time_scale > 216000) then
+        global["last-welcome-tick"] = game.tick
+        WelcomePlayers()
     end
 end
 
@@ -112,23 +153,22 @@ function updateMapSettings()
     end
 end
 
-
 script.on_event(defines.events.on_tick,
     function(event)
-        if (not global["previous-scale"]) or (not (global["previous-scale"] == gtts_time_scale)) then
-            updateMapSettings()
-            updatePlayerSettings()
-            global["previous-scale"] = gtts_time_scale
-        end
+        --Only change the game speed if the target frame rate has changed or Reset-GameSpeed was disabled.
+        --For this we save "previous-speed" in the global table with the last adjusted game speed. This
+        --prevents the game speed from being changed if the user, or another mod, changes the game speed.
+        if (not global["previous-speed"]) or (not (global["previous-speed"] == gtts_time_scale_inverse))  then
+            if (not global["previous-scale"]) or (not (global["previous-scale"] == gtts_time_scale)) then
+                updateMapSettings()
+                updatePlayerSettings()
+                global["previous-scale"] = gtts_time_scale
+            end
 
-        if settings.global["gtts-Reset-GameSpeed"].value == false then
-            --Only change the game speed if the target frame rate has changed or Reset-GameSpeed was disabled.
-            --For this we save "previous-speed" in the global table with the last adjusted game speed. This
-            --prevents the game speed from being changed if the user, or another mod, changes the game speed.
-            if (not global["previous-speed"]) or (not (global["previous-speed"] == 1.0 / gtts_time_scale)) then
+            if settings.global["gtts-Reset-GameSpeed"].value == false then
                 if settings.startup["gtts-Adjust-GameSpeed"].value == true then
-                    game.speed = 1.0 / gtts_time_scale
-                    global["previous-speed"] = 1.0 / gtts_time_scale
+                    game.speed = gtts_time_scale_inverse
+                    global["previous-speed"] = gtts_time_scale_inverse
                 end
             end
         end

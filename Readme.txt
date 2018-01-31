@@ -3,41 +3,58 @@ GTTS 1.2.0 2017-06-27
 
 Mod by Zanthra (zanthra@gmail.com)
 
-This mod's goal is to allow the general speed of one game tick, an update to
-be adjusted. The initial goal of the mod was to allow the game to run at 120FPS
-or higher to have smoother motion on high refresh rate displays. During
-testing I discovered it also had some benefit to other mods and their relation
-to high speed transport belts like those from Bob's Mods and Factorissimo.
+This mod changes all available prototype speeds and durations to
+effectively change the duration of one game tick. This allows
+players to speed up slow factories by increasing the ammount of
+time the game has to calculate the tick without haivng to delay
+the game, or allows the game to be played at higher framerates
+for players that have high refresh rate monitors.
 
-This mod can be used to adjust the speeds of ingame objects to a target FPS
-as configured in the mod options. This is by default 120, or twice the standard
-of 60 UPS Factorio normally runs at. This target frame rate can be set below
-60FPS to potentially speed up slow factories, but this may cause problems with
-belt compression and other speed sensitive characteristics. This is almost
-assured with high speed belts like those in Bob's Mods.
+The mod is somewhat limited in what it can change, so references
+to speeds or rates will be incorrect based on the ratio between
+the target UPS and the base 60 UPS. If for example a boiler lists
+it's energy consumption as 7.2 MW it effectively means that it
+will use 7.2 MJ in 60 ticks. At 30 UPS this will take 2 seconds
+in wall time, which matches with the normal rate of 3.6 MW at 60
+UPS. Because all production and consumption rates are adjusted
+equally, everything balances out to work at the original Factorio
+ratios. Unfortunately train schedules are going to be incorrect
+as well, as they are again based on 1 second being equal to 60
+ticks.
 
-Time and speed displays ingame will be inaccurate based on the UPS ratio.
-Wherever the game uses 1 second as the unit of measurement, for crafting times,
-energy consumption, vehicle speed, shooting speed, etc, 1 second should be read
-as 60 ticks. If your tick rate is 120, and a boiler says it consumes 1.8MW,
-that is 1.8MJ per 60 ticks, or 3.6MJ per adjusted second. The mod balances
-everything so that all standard ratios for Factorio still work. Train schedules
-on the other hand will always run faster or slower than indicated, as a wait
-time of 60 seconds is 3600 ticks, or only 30 seconds at 120 UPS.
+Some things in Factorio are tick sensitive. For example a inserter
+dropping a stack of items onto a transport belt cannot drop more
+than one item every tick. That means that if the belt moves
+further than the width of one item in that tick, the belt will
+not be fully compressed. This may compound with other belt
+compression problems that were introduced in 0.16, and will
+certainly impact very fast modded belts like those in Bob's Mods.
+Conversely running the game at a higher UPS tends to reduce some
+of these problems, and in previous versions I have gotten full
+throughput into and out of Factorissimo buildings, and full
+compression on loaders even when using the fastest of Bob's
+Mods belts.
 
-There are options to adjust the map settings such as pollution spread and
-ageing, biter evolution and expansions, attack formation times, as well as
-hand crafting rates. Disabling these will set the value back to what it was
-when the option was enabled. Interoperability with other mods is not
-guaranteed.
+Some of the changes this mod makes are saved in the game file.
+By default this is limited to only the game speed, so a simple
+"/c game.speed = 1" command on the console can return the game
+speed of a modded save to the original 60 UPS. However you can
+also use the "Reset Game Speed" map specific option to
+immediately reset the game speed to 60 UPS, as well as disable
+any other save game stored adjustments like hand crafting speed
+before saving the game so that the mod can be disabled with
+minimal disruption.
 
-The game speed is stored in the save. This means that if this mod adjusts the
-game speed to match the prototype speed adjustments, the game is saved, this
-mod is removed or disabled, and the game is loaded again, the game speed may
-be out of line with the speed of objects in game. If this happens, simply run
-the command "/c game.speed = 1" to restore the default speed.
+This mod does not adjust the day length as that is more
+complicated than you may imagine, so the day length will be
+longer or shorter than normal. You can use another mod to adjust
+the day length to your prefered duration.
 
-There are several reliable mods for adjusting day length, so I have opted not
-to incorporate that feature into this mod.
+I would love to get in touch with anyone who would be interested
+in trying this in multiplayer to check compatability or look for
+any bugs. Let me know.
 
-I do not play multiplayer, so I cannot give any advice.
+Zanthra (zanthra+factoriogtts@gmail.com)
+
+Factorio Mod Portal: https://mods.factorio.com/mods/Zanthra/GTTS
+Factorio Forums: https://forums.factorio.com/viewtopic.php?f=144&t=50281

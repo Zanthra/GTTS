@@ -11,7 +11,7 @@ data:extend(
     type = "int-setting",
     name = "gtts-Target-FrameRate",
     setting_type = "startup",
-    default_value = 120,
+    default_value = 60,
   },
 
   {
@@ -20,7 +20,12 @@ data:extend(
     setting_type = "startup",
     default_value = true,
   },
-
+  {
+    type = "bool-setting",
+    name = "gtts-Welcome",
+    setting_type = "startup",
+    default_value = true,
+  },
   {
     type = "bool-setting",
     name = "gtts-Reset-GameSpeed",
