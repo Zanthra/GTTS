@@ -1,7 +1,5 @@
-GTTS 1.2.0 2017-06-27
-====================
-
-Mod by Zanthra (zanthra@gmail.com)
+GTTS 1.3.0 2018-01-31
+=====================
 
 This mod changes all available prototype speeds and durations to
 effectively change the duration of one game tick. This allows
