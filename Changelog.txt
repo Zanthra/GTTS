@@ -1,4 +1,16 @@
 
+Version 1.3.1 2018-01-31
+------------------------
+
+Fixed the check for the setting used to disasble the welcome
+message so that it actually disables the welcome message.
+
+Added an option to close the notification permanenetly for a
+save game on the dialog itself so players can supress the
+welcome message if it appears too frequently.
+
+Also nil the UI event handler to clean up resources.
+
 Version 1.3.0 2018-01-31
 ------------------------
 

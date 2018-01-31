@@ -29,15 +29,21 @@ function WelcomePlayers()
         
         local textbox = notification.add{type = "text-box", name = "GTTS Notification", text = notificationtext}
         textbox.read_only = true
-
-        script.on_event(defines.events.on_gui_click, function (event)
-                if event.element.name == "GTTS Notification Close" then
-                    notification.destroy()
-                end
-            end
-        )
-
-        notification.add{type = "button", name = "GTTS Notification Close", caption = "Close", onClick = {id="close_dialog"}}
+        local handler =
+        function (event)
+            if event.element.name == "GTTS Notification Close" then
+                handler = nil
+                notification.destroy()
+            else if event.element.name == "GTTS Notification Disable" then
+                handler = nil
+                global["disable-welcome"] = true
+                notification.destroy()
+            end end -- If ladders are a terrible terrible sight to behold in LUA
+        end
+        script.on_event(defines.events.on_gui_click, handler)
+        local flow = notification.add{type = "flow"}
+        flow.add{type = "button", name = "GTTS Notification Close", caption = "Close"}
+        flow.add{type = "button", name = "GTTS Notification Disable", caption = "Close and Don't Show Again This Game"}
     end
 end
 
@@ -58,7 +64,7 @@ function updatePlayerSettings()
             end
         end
     end
-    if settings.startup["gtts-Welcome"] and (not global["last-welcome-tick"] or (game.tick - global["last-welcome-tick"]) / gtts_time_scale > 216000) then
+    if settings.startup["gtts-Welcome"].value == true and (not global["disable-welcome"]) and (not global["last-welcome-tick"] or (game.tick - global["last-welcome-tick"]) / gtts_time_scale > 216000) then
         global["last-welcome-tick"] = game.tick
         WelcomePlayers()
     end
