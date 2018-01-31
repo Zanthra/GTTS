@@ -27,7 +27,8 @@ function WelcomePlayers()
                         "For more information visit the factorio forums at: \n"..
                         "https://forums.factorio.com/viewtopic.php?f=91&t=50281"
         
-        notification.add{type = "text-box", name = "GTTS Notification", text = notificationtext, word_wrap = true}
+        local textbox = notification.add{type = "text-box", name = "GTTS Notification", text = notificationtext}
+        textbox.read_only = true
 
         script.on_event(defines.events.on_gui_click, function (event)
                 if event.element.name == "GTTS Notification Close" then
