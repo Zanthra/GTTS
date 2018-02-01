@@ -62,7 +62,7 @@ function updatePlayerSettings()
         end
     end
     if game.tick > 1 then
-    if settings.startup["gtts-Welcome"].value == true and (not global["disable-welcome"])) then
+    if settings.startup["gtts-Welcome"].value == true and (not global["disable-welcome"]) then
         WelcomePlayers()
     end
 end
