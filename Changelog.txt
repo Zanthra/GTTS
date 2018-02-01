@@ -1,4 +1,11 @@
 
+Version 1.3.2 2018-01-31
+------------------------
+
+Changed the welcome popup to not appear on tick 1 of the
+game so as not to interefere with the game tips that prevents
+interaction with the UI.
+
 Version 1.3.1 2018-01-31
 ------------------------
 

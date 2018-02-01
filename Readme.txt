@@ -1,4 +1,4 @@
-GTTS 1.3.1 2018-01-31
+GTTS 1.3.2 2018-01-31
 =====================
 
 This mod changes all available prototype speeds and durations to
