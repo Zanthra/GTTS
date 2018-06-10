@@ -1,4 +1,4 @@
-GTTS 1.3.2 2018-01-31
+GTTS 1.3.3 2018-06-10
 =====================
 
 This mod changes all available prototype speeds and durations to
@@ -42,6 +42,16 @@ immediately reset the game speed to 60 UPS, as well as disable
 any other save game stored adjustments like hand crafting speed
 before saving the game so that the mod can be disabled with
 minimal disruption.
+
+In safe mode no runtime events are added, meaning the mod can
+make no changes beyond those made to prototypes when factorio
+loads. Game Speed must be adjusted manually, along with any hand
+crafting speeds.
+
+Commands:
+
+/c game.speed = {target-ups} / 60
+/c game.player.character.character_crafting_speed_modifier = 60 / {target-ups} - 1
 
 This mod does not adjust the day length as that is more
 complicated than you may imagine, so the day length will be

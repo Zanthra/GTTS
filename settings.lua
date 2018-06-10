@@ -2,6 +2,12 @@ data:extend(
 {
   {
     type = "bool-setting",
+    name = "gtts-z-No-Runtime-Adjustments",
+    setting_type = "startup",
+    default_value = false,
+  },
+  {
+    type = "bool-setting",
     name = "gtts-Adjust-GameSpeed",
     setting_type = "startup",
     default_value = true,
@@ -17,12 +23,6 @@ data:extend(
   {
     type = "bool-setting",
     name = "gtts-fluid-speed",
-    setting_type = "startup",
-    default_value = true,
-  },
-  {
-    type = "bool-setting",
-    name = "gtts-Welcome",
     setting_type = "startup",
     default_value = true,
   },
@@ -60,7 +60,6 @@ data:extend(
     setting_type = "runtime-global",
     default_value = false,
   },
-  
   {
     type = "bool-setting",
     name = "gtts-Adjust-Groups",

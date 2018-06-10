@@ -4,7 +4,8 @@ gtts_time_scale = 1.0
 gtts_time_scale_inverse = 1.0
 gtts_fluid_speed = false
 
-if settings.startup["gtts-Target-FrameRate"] and settings.startup["gtts-Target-FrameRate"].value >= 6 then
+
+if settings.startup["gtts-Target-FrameRate"] and settings.startup["gtts-Target-FrameRate"].value >= 6 and settings.startup["gtts-Target-FrameRate"].value <= 300 then
 	gtts_time_scale = 60.0 / settings.startup["gtts-Target-FrameRate"].value
 	gtts_time_scale_inverse = 1.0 / gtts_time_scale
 end

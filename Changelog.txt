@@ -1,9 +1,21 @@
 
+Version 1.3.3 2018-06-10
+------------------------
+
+This version removes the welcome window due to various potential
+issues I don't feel confident in my ability to track down and fix.
+
+It also adds a Safe Mode checkbox that disables all runtime events
+meaning that the player must adjust the game speed and hand
+crafting rates manually. It also disables all runtime mod settings
+changes. This can substantially improve the mdos compatibility
+in multiplayer or in concjunction with other mods.
+
 Version 1.3.2 2018-01-31
 ------------------------
 
 Changed the welcome popup to not appear on tick 1 of the
-game so as not to interefere with the game tips that prevents
+game so as not to interfere with the game tips that prevents
 interaction with the UI.
 
 Version 1.3.1 2018-01-31
