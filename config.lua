@@ -204,7 +204,7 @@ prototype_speeds_recursive = {
 	"starting_vertical_speed",
 	"initial_vertical_speed",
 	"speed_from_center",
-	"frequency",
+
 }
 
 prototype_durations_recursive = {

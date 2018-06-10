@@ -102,7 +102,7 @@ local function adjust_prototypes_recursive(object)
 					-- animation speed will make the animation too fast or too
 					-- slow.
 					working_animation = false
-					if object["crafting_speed"] then
+					if object["crafting_speed"] or object["animation-speed-coefficient"] then
 						if     sub_name == "working_visualisations"
 							or sub_name == "working_visualisations_disabled"
 							or sub_name == "animation"

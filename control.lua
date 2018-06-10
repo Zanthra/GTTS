@@ -81,6 +81,17 @@ function updateMapSettings()
             end
             global["initial-day-night"] = nil
         end
+        if settings.global["gtts-Adjust-WindSpeed"].value == true then
+            if not global["initial-windspeed"] then
+                global["initial-windspeed"] = game.surfaces["nauvis"].wind_speed
+            end
+            game.surfaces["nauvis"].wind_speed = global["initial-windspeed"] * gtts_time_scale
+        else
+            if global["initial-windspeed"] then
+                game.surfaces["nauvis"].wind_speed = global["initial-windpseed"]
+            end
+            global["initial-windspeed"] = nil
+        end
     end
 
     if settings.global["gtts-Adjust-Groups"].value == true then
