@@ -53,11 +53,6 @@ Commands:
 /c game.speed = {target-ups} / 60
 /c game.player.character.character_crafting_speed_modifier = 60 / {target-ups} - 1
 
-This mod does not adjust the day length as that is more
-complicated than you may imagine, so the day length will be
-longer or shorter than normal. You can use another mod to adjust
-the day length to your prefered duration.
-
 I would love to get in touch with anyone who would be interested
 in trying this in multiplayer to check compatability or look for
 any bugs. Let me know.

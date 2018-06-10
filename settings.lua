@@ -22,6 +22,13 @@ data:extend(
 
   {
     type = "bool-setting",
+    name = "gtts-Adjust-DayNight",
+    setting_type = "runtime-global",
+    default_value = false,
+  },
+
+  {
+    type = "bool-setting",
     name = "gtts-fluid-speed",
     setting_type = "startup",
     default_value = true,

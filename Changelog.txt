@@ -1,4 +1,13 @@
 
+Version 1.3.4 2018-06-10
+------------------------
+
+After a brief discussion with Klonan on the Factorio discord, I
+learned that there is indeed an easy way to manage day/night
+length. I implemented a runtime setting to adjust this for the
+main surface (Nauvis), which brings solar power and accumulator
+rations in line with vanilla without use of another mod.
+
 Version 1.3.3 2018-06-10
 ------------------------
 

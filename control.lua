@@ -1,11 +1,5 @@
 require "config"
 
-script.on_configuration_changed(
-    function (event)
-        global["previous-scale"] = 1.0 / game.speed
-    end
-)
-
 function updatePlayerSettings()
     if settings.global["gtts-Adjust-HandCraftingSpeed"].value == true then
         for _,player in pairs(game.players) do
@@ -75,6 +69,20 @@ function updateMapSettings()
         end
     end
 
+    if game.surfaces["nauvis"] then
+        if settings.global["gtts-Adjust-DayNight"].value == true then
+            if not global["initial-day-night"] then
+                global["initial-day-night"] = game.surfaces["nauvis"].ticks_per_day
+            end
+            game.surfaces["nauvis"].ticks_per_day = global["initial-day-night"] / gtts_time_scale
+        else
+            if global["initial-day-night"] then
+                game.surfaces["nauvis"].ticks_per_day = global["initial-day-night"]
+            end
+            global["initial-day-night"] = nil
+        end
+    end
+
     if settings.global["gtts-Adjust-Groups"].value == true then
         if not global["initial-groups-mingroupgatheringtime"] then
             global["initial-groups-mingroupgatheringtime"] = game.map_settings.unit_group.min_group_gathering_time
@@ -113,6 +121,12 @@ function updateMapSettings()
 end
 
 if settings.startup["gtts-z-No-Runtime-Adjustments"].value == false then
+    script.on_configuration_changed(
+        function (event)
+            global["previous-scale"] = 1.0 / game.speed
+        end
+    )
+
     script.on_event(defines.events.on_tick,
         function(event)
             --Only change the game speed if the target frame rate has changed or Reset-GameSpeed was disabled.
