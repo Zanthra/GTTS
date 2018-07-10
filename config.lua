@@ -5,7 +5,7 @@ gtts_time_scale_inverse = 1.0
 gtts_fluid_speed = false
 
 
-if settings.startup["gtts-Target-FrameRate"] and settings.startup["gtts-Target-FrameRate"].value >= 6 and settings.startup["gtts-Target-FrameRate"].value <= 300 then
+if settings.startup["gtts-Target-FrameRate"] and settings.startup["gtts-Target-FrameRate"].value >= 6 and settings.startup["gtts-Target-FrameRate"].value <= 600 then
 	gtts_time_scale = 60.0 / settings.startup["gtts-Target-FrameRate"].value
 	gtts_time_scale_inverse = 1.0 / gtts_time_scale
 end
@@ -194,8 +194,12 @@ prototype_power_rates = {
 -- Mostly these properties are here because they relate to smoke which can be generated
 -- at a great many different layers in the prototype tree.
 prototype_speeds_recursive = {
+	-- Acceleration is also handled specially in the recursive function since the
+	-- function tags the values to prevent them from being changed twice, this
+	-- entry is doubled as a reminder.
 	"acceleration", -- First adjust for the speed the acceleration grants.
 	"acceleration", -- Then adjust for the rate at which the speed is granted.
+
 	"speed", -- Many prototypes have a speed for movement speed, operating speed, etc.
 
 	-- The following are mostly related to projectiles, particles and smoke.

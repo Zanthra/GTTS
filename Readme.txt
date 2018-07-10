@@ -1,4 +1,4 @@
-GTTS 1.3.3 2018-06-10
+GTTS 1.3.5 2018-06-10
 =====================
 
 This mod changes all available prototype speeds and durations to
@@ -7,6 +7,12 @@ players to speed up slow factories by increasing the ammount of
 time the game has to calculate the tick without haivng to delay
 the game, or allows the game to be played at higher framerates
 for players that have high refresh rate monitors.
+
+Due to item locations on belts being quantized to 1/256 of a tile,
+accurate item movement on belts requires a UPS value of 480/x.
+Suggested UPS for belt accuracy are:
+
+480, 240, 160, 120, 96, 80, 60, 48, 40, 32, 30, 24, 20, 19.2, 16, 15 and 12
 
 The mod is somewhat limited in what it can change, so references
 to speeds or rates will be incorrect based on the ratio between
