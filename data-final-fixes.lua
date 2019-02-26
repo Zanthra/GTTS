@@ -170,15 +170,18 @@ local function adjust_speeds()
 				
 				-- Do recursive adjustments.
 				adjust_prototypes_recursive(prototype)
+				
 
+				-- TOTO: Check changes to fluid movement for more accurate adjustment.
+				--
 				-- Allow the fluid speed adjustment to be disabled as it may be
 				-- terribly inaccurate to simply change the pressure to speed
 				-- ratio like this.
-				if gtts_fluid_speed then
-					if prototype["pressure_to_speed_ratio"] then
-						prototype["pressure_to_speed_ratio"] = prototype["pressure_to_speed_ratio"] * gtts_time_scale
-					end
-				end
+				--if gtts_fluid_speed then
+				--	if prototype["pressure_to_speed_ratio"] then
+				--		prototype["pressure_to_speed_ratio"] = prototype["pressure_to_speed_ratio"] * gtts_time_scale
+				--	end
+				--end
 				
 
 				if type_name == "repair-tool" and prototype["durability"] then
