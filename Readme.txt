@@ -1,4 +1,4 @@
-GTTS 1.4.0 2019-02-26
+GTTS 1.4.1 2019-02-28
 =====================
 
 This mod changes all available prototype speeds and durations to
@@ -38,6 +38,13 @@ of these problems, and in previous versions I have gotten full
 throughput into and out of Factorissimo buildings, and full
 compression on loaders even when using the fastest of Bob's
 Mods belts.
+
+Factorio 0.17 introduced a new fluid flow system, but there is
+currently no way of changing fluid flow speeds. This will be
+UPS sensitive unless that changes. At low UPS (below 60) fluid
+will flow slower, and high UPS (above 60) fluid will flow faster.
+This could have a big impact on the performance of fluid limited
+builds, espeically nuclear power.
 
 Some of the changes this mod makes are saved in the game file.
 By default this is limited to only the game speed, so a simple

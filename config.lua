@@ -37,7 +37,7 @@ prototype_speeds = {
 	"pumping_speed", -- Liquid pump speeds.
 	"emissions_per_tick", -- Pollution Production.
 	"fluid_usage_per_tick", -- Steam engine and turbine steam usage speed.
-	"rotation_speed", -- Turing rate for cars and tanks, as well as turning speed for inserters.
+	"rotation_speed", -- Turing rate for cars and tanks, as well as turning speed for inserters and radars.
 	"extension_speed", -- Speed at which inserters extend or contract their hand to pick up items on the other side of belts, or to reach closer or further belts in mods that support it.
 	"researching_speed", -- Lab Research speed.
 
@@ -51,8 +51,9 @@ prototype_speeds = {
 	"running_speed", -- Some mobs use running speed instead of movement speed.
 
 
-	------------------
+	--------------
 	-- Vehicles --
+	--------------
 	"turret_rotation_speed", -- Turret rotation speed for cars, tanks, turrets and artillery.
 	"max_speed", -- A variable affecting the speed at which trains will stop accelerating, even if other factors would allow them to go faster.
 	"braking_force", -- Base braking force for trains.
@@ -70,6 +71,7 @@ prototype_speeds = {
 	"attack_speed",
 	"ending_attack_speed",
 	"damage_multiplier_decrease_per_tick",
+	"splash_damage_per_tick",
 
 
 	----------------------
@@ -135,7 +137,8 @@ prototype_durations = {
 	"ticks_to_stay_in_combat",
 	"time_before_removed",
 	"time_to_live",
-	"duration_in_ticks",
+	"opened_duration",
+	"particle_alpha_blend_duration",
 	
 	-- Cooldowns
 
@@ -161,6 +164,17 @@ prototype_durations = {
 	"early_death_ticks",
 	"damage_interval",
 	
+
+	"particle_fade_out_duration",
+	
+	"particle_spawn_interval",
+	"particle_spawn_timeout",
+	
+	
+	"secondary_picture_fade_out_start",
+	"secondary_picture_fade_out_duration",
+	
+	"duration_in_ticks",
 
 	--------------------------------------
 	-- Removed due to incompatabilities --
@@ -203,17 +217,19 @@ prototype_speeds_recursive = {
 	"acceleration", -- First adjust for the speed the acceleration grants.
 	"acceleration", -- Then adjust for the rate at which the speed is granted.
 
+	"particle_vertical_acceleration",
+
+
 	"speed", -- Many prototypes have a speed for movement speed, operating speed, etc.
 
 	-- The following are mostly related to projectiles, particles and smoke.
 	"starting_speed",
-	"starting_frame_speed",
+	--"starting_frame_speed",
 	"starting_vertical_speed",
 	"initial_vertical_speed",
 	"speed_from_center",
-
+	
 }
 
 prototype_durations_recursive = {
-	
 }

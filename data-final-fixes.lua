@@ -55,7 +55,7 @@ local function adjust_prototypes_recursive(object)
 					-- An exception to the doubling is acceleration as
 					-- it is doubly affected by time, so just run the
 					-- adjustment again.
-					if speed == "acceleration" then
+					if speed == "acceleration" or speed == "particle_vertical_acceleration" then
 						object[speed] = object[speed] * gtts_time_scale
 					end
 				end
@@ -183,6 +183,13 @@ local function adjust_speeds()
 				--	end
 				--end
 				
+
+				if type_name == "splitter" and prototype["structure_animation_speed_coefficient"] then
+					prototype["structure_animation_speed_coefficient"] = prototype["structure_animation_speed_coefficient"] * gtts_time_scale
+				end
+				if type_name == "splitter" and prototype["structure_animation_movement_cooldown"] then
+					prototype["structure_animation_movement_cooldown"] = prototype["structure_animation_movement_cooldown"] / gtts_time_scale
+				end
 
 				if type_name == "repair-tool" and prototype["durability"] then
 					prototype["durability"] = prototype["durability"] / gtts_time_scale

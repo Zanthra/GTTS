@@ -1,4 +1,10 @@
 
+Version 1.4.1 2019-02-28
+------------------------
+
+Added new speeds and durations for new spitter projectiles and
+beams. Also added adjustment for splitter animation speed.
+
 Version 1.4.0 2019-02-26
 ------------------------
 
