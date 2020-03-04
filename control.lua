@@ -1,6 +1,6 @@
 require "config"
 
-function updatePlayerSettings()
+local function updatePlayerSettings()
     if settings.global["gtts-Adjust-HandCraftingSpeed"].value == true then
         for _,player in pairs(game.players) do
             if player.character then
@@ -16,121 +16,67 @@ function updatePlayerSettings()
     end
 end
 
-function updateMapSettings()
-    if settings.global["gtts-Adjust-Pollution"].value == true then
-        if not global["initial-pollution-diffusionratio"] then
-            global["initial-pollution-diffusionratio"] = game.map_settings.pollution.diffusion_ratio
-        end
-        if not global["iniital-pollution-ageing"] then
-            global["initial-pollution-ageing"] = game.map_settings.pollution.ageing
-        end
-        game.map_settings.pollution.diffusion_ratio = global["initial-pollution-diffusionratio"] * gtts_time_scale
-        game.map_settings.pollution.ageing = global["initial-pollution-ageing"] * gtts_time_scale
-    else
-        if global["initial-pollution-diffusionratio"] then
-            game.map_settings.pollution.diffusion_ratio = global["initial-pollution-diffusionratio"]
-            global["initial-pollution-diffusionratio"] = nil
-        end
-        if global["initial-pollution-ageing"] then
-            game.map_settings.pollution.ageing = global["initial-pollution-ageing"]
-            global["initial-pollution-ageing"] = nil
-        end
+--This turns an array of keys below the global "game" object into
+--a table reference and a key in that table as a tuple.
+--
+--t,k = get_reference(keys)
+--
+--the reference becomes t[k]
+local function get_reference(keys)
+    local length = #keys
+    local reftable = game
+    for i = 1,length-1 do
+        reftable = reftable[keys[i]]
     end
+    return reftable,keys[length]
+end
 
-    if settings.global["gtts-Adjust-Evolution"].value == true then
-        if not global["initial-evolution-timefactor"] then
-            global["initial-evolution-timefactor"] = game.map_settings.enemy_evolution.time_factor
-        end
-        game.map_settings.enemy_evolution.time_factor = global["initial-evolution-timefactor"] * gtts_time_scale
-    else
-        if global["initial-evolution-timefactor"] then
-            game.map_settings.enemy_evolution.time_factor = global["initial-evolution-timefactor"]
-            global["initial-evolution-timefactor"] = nil
-        end
-    end
+--Helper method for updating settings given the setting name, the
+--global variable to which the previous value of that variable is
+--saved, a list of keys to the variable to be changed, and a boolean
+--indicating whether it is a speed or duration.
+local function update_GTTS_setting(setting, save, targetvariable, speed)
+    local t,k = get_reference(targetvariable)
 
-    if settings.global["gtts-Adjust-Expansion"].value == true then
-        if not global["initial-expansion-minexpansioncooldown"] then
-            global["initial-expansion-minexpansioncooldown"] = game.map_settings.enemy_expansion.min_expansion_cooldown
+    if settings.global[setting].value == true then
+        if not global[save] then
+            global[save] = t[k]
         end
-        if not global["iniital-expansion-maxexpansioncooldown"] then
-            global["iniital-expansion-maxexpansioncooldown"] = game.map_settings.enemy_expansion.max_expansion_cooldown
-        end
-        game.map_settings.enemy_expansion.min_expansion_cooldown = global["initial-expansion-minexpansioncooldown"] / gtts_time_scale
-        game.map_settings.enemy_expansion.max_expansion_cooldown = global["iniital-expansion-maxexpansioncooldown"] / gtts_time_scale
-    else
-        if global["initial-expansion-minexpansioncooldown"] then
-            game.map_settings.enemy_expansion.min_expansion_cooldown = global["initial-expansion-minexpansioncooldown"]
-            global["initial-expansion-minexpansioncooldown"] = nil
-        end
-        if global["iniital-expansion-maxexpansioncooldown"] then
-            game.map_settings.enemy_expansion.max_expansion_cooldown = global["iniital-expansion-maxexpansioncooldown"]
-            global["iniital-expansion-maxexpansioncooldown"] = nil
-        end
-    end
-
-    if game.surfaces["nauvis"] then
-        if settings.global["gtts-Adjust-DayNight"].value == true then
-            if not global["initial-day-night"] then
-                global["initial-day-night"] = game.surfaces["nauvis"].ticks_per_day
-            end
-            game.surfaces["nauvis"].ticks_per_day = global["initial-day-night"] / gtts_time_scale
+        if speed then
+            t[k] = global[save] * gtts_time_scale
         else
-            if global["initial-day-night"] then
-                game.surfaces["nauvis"].ticks_per_day = global["initial-day-night"]
-            end
-            global["initial-day-night"] = nil
+            t[k] = global[save] / gtts_time_scale
         end
-        if settings.global["gtts-Adjust-WindSpeed"].value == true then
-            if not global["initial-windspeed"] then
-                global["initial-windspeed"] = game.surfaces["nauvis"].wind_speed
-            end
-            game.surfaces["nauvis"].wind_speed = global["initial-windspeed"] * gtts_time_scale
-        else
-            if global["initial-windspeed"] then
-                game.surfaces["nauvis"].wind_speed = global["initial-windpseed"]
-            end
-            global["initial-windspeed"] = nil
-        end
-    end
-
-    if settings.global["gtts-Adjust-Groups"].value == true then
-        if not global["initial-groups-mingroupgatheringtime"] then
-            global["initial-groups-mingroupgatheringtime"] = game.map_settings.unit_group.min_group_gathering_time
-        end
-        if not global["initial-groups-maxgroupgatheringtime"] then
-            global["initial-groups-maxgroupgatheringtime"] = game.map_settings.unit_group.max_group_gathering_time
-        end
-        if not global["initial-groups-maxwaittimeforlatemembers"] then
-            global["initial-groups-maxwaittimeforlatemembers"] = game.map_settings.unit_group.max_wait_time_for_late_members
-        end
-        if not global["initial-groups-ticktolerancewhenmemberarrives"] then
-            global["initial-groups-ticktolerancewhenmemberarrives"] = game.map_settings.unit_group.tick_tolerance_when_member_arrives
-        end
-        game.map_settings.unit_group.min_group_gathering_time = global["initial-groups-mingroupgatheringtime"] / gtts_time_scale
-        game.map_settings.unit_group.max_group_gathering_time = global["initial-groups-maxgroupgatheringtime"] / gtts_time_scale
-        game.map_settings.unit_group.max_wait_time_for_late_members = global["initial-groups-maxwaittimeforlatemembers"] / gtts_time_scale
-        game.map_settings.unit_group.tick_tolerance_when_member_arrives = global["initial-groups-ticktolerancewhenmemberarrives"] / gtts_time_scale
     else
-        if global["initial-groups-mingroupgatheringtime"] then
-            game.map_settings.unit_group.min_group_gathering_time = global["initial-groups-mingroupgatheringtime"]
-            global["initial-groups-mingroupgatheringtime"] = nil
-        end
-        if global["initial-groups-maxgroupgatheringtime"] then
-            game.map_settings.unit_group.max_group_gathering_time = global["initial-groups-maxgroupgatheringtime"]
-            global["initial-groups-maxgroupgatheringtime"] = nil
-        end
-        if global["initial-groups-maxwaittimeforlatemembers"] then
-            game.map_settings.unit_group.max_wait_time_for_late_members = global["initial-groups-maxwaittimeforlatemembers"]
-            global["initial-groups-maxwaittimeforlatemembers"] = nil
-        end
-        if global["initial-groups-ticktolerancewhenmemberarrives"] then
-            game.map_settings.unit_group.tick_tolerance_when_member_arrives = global["initial-groups-ticktolerancewhenmemberarrives"]
-            global["initial-groups-ticktolerancewhenmemberarrives"] = nil
+        if global[save] then
+            t[k] = global[save]
+            global[save] = nil
         end
     end
 end
 
+
+local function updateMapSettings()
+    update_GTTS_setting("gtts-Adjust-Pollution", "initial-pollution-diffusionratio", {"map_settings", "pollution", "diffusion_ratio"}, true)
+    update_GTTS_setting("gtts-Adjust-Pollution", "initial-pollution-ageing", {"map_settings", "pollution", "ageing"}, true)
+    
+    update_GTTS_setting("gtts-Adjust-Evolution", "initial-evolution-timefactor", {"map_settings", "enemy_evolution", "time_factor"}, true)
+
+    update_GTTS_setting("gtts-Adjust-Expansion", "initial-expansion-minexpansioncooldown", {"map_settings", "enemy_expansion", "min_expansion_cooldown"}, false)
+    update_GTTS_setting("gtts-Adjust-Expansion", "initial-expansion-maxexpansioncooldown", {"map_settings", "enemy_expansion", "max_expansion_cooldown"}, false)
+
+    if game.surfaces["nauvis"] then
+        update_GTTS_setting("gtts-Adjust-DayNight", "initial-day-night", {"surfaces", "nauvis", "ticks_per_day"}, false)
+        update_GTTS_setting("gtts-Adjust-WindSpeed", "initial-windspeed", {"surfaces", "nauvis", "wind_speed"}, true)
+    end
+
+    update_GTTS_setting("gtts-Adjust-Groups", "initial-groups-mingroupgatheringtime", {"map_settings", "unit_group", "min_group_gathering_time"}, false)
+    update_GTTS_setting("gtts-Adjust-Groups", "initial-groups-maxgroupgatheringtime", {"map_settings", "unit_group", "max_group_gathering_time"}, false)
+    update_GTTS_setting("gtts-Adjust-Groups", "initial-groups-maxwaittimeforlatemembers", {"map_settings", "unit_group", "max_wait_time_for_late_members"}, false)
+    update_GTTS_setting("gtts-Adjust-Groups", "initial-groups-ticktolerancewhenmemberarrives", {"map_settings", "unit_group", "tick_tolerance_when_member_arrives"}, false)
+end
+
+--Only add events if the safe mode setting is not enabled.
 if settings.startup["gtts-z-No-Runtime-Adjustments"].value == false then
     script.on_configuration_changed(
         function (event)
@@ -166,7 +112,6 @@ if settings.startup["gtts-z-No-Runtime-Adjustments"].value == false then
                 game.speed = 1.0
                 global["previous-speed"] = 1.0
             end
-
             updateMapSettings()
             updatePlayerSettings()
         end

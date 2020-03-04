@@ -5,7 +5,7 @@ gtts_time_scale_inverse = 1.0
 gtts_fluid_speed = false
 
 
-if settings.startup["gtts-Target-FrameRate"] and settings.startup["gtts-Target-FrameRate"].value >= 6 and settings.startup["gtts-Target-FrameRate"].value <= 600 then
+if settings.startup["gtts-Target-FrameRate"] and settings.startup["gtts-Target-FrameRate"].value >= 6 and settings.startup["gtts-Target-FrameRate"].value <= 480 then
 	gtts_time_scale = 60.0 / settings.startup["gtts-Target-FrameRate"].value
 	gtts_time_scale_inverse = 1.0 / gtts_time_scale
 end
@@ -19,7 +19,7 @@ exclude_prototype_types = {
 	"god-controller",
 	"editor-controller",
 	"spectator-controller",
-	"mining-tool", -- Mining tool speed is tied in with player mining speed, but the animation rate is tied to the player property. Skip mining tool speed and fix up the duration in an exception.
+	"mining-tool", -- Mining tool speed is tied in with player mining speed, and the animation rate is tied to the player property.
 	"module",
 }
 
@@ -77,8 +77,8 @@ prototype_speeds = {
 	----------------------
 	-- Pollution speeds --
 	----------------------
-	"pollution_absorbtion_absolute", -- How much pollution an entity absorbes each tick no matter how much pollution is in that chunk.
-	"pollution_absorbtion_proportional", -- What percent of the pollution in a chuck the entity will absorb each tick.
+	"pollution_absorption_absolute", -- How much pollution an entity absorbes each tick no matter how much pollution is in that chunk.
+	"pollution_absorption_proportional", -- What percent of the pollution in a chuck the entity will absorb each tick.
 	-- Also see emissions-per-tick under buildings above.
 
 	-----------------
@@ -214,6 +214,7 @@ prototype_speeds_recursive = {
 	-- Acceleration is also handled specially in the recursive function since the
 	-- function tags the values to prevent them from being changed twice, this
 	-- entry is doubled as a reminder.
+
 	"acceleration", -- First adjust for the speed the acceleration grants.
 	"acceleration", -- Then adjust for the rate at which the speed is granted.
 

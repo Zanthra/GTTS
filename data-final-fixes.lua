@@ -172,7 +172,9 @@ local function adjust_speeds()
 				adjust_prototypes_recursive(prototype)
 				
 
-				-- TOTO: Check changes to fluid movement for more accurate adjustment.
+				-- Currently in 0.17 the fluid mechanics have not changed, except
+				-- to remove the pressure_to_speed_ratio that this mod was using
+				-- to make adjustment to fluid flow speeds.
 				--
 				-- Allow the fluid speed adjustment to be disabled as it may be
 				-- terribly inaccurate to simply change the pressure to speed
@@ -183,7 +185,20 @@ local function adjust_speeds()
 				--	end
 				--end
 				
-
+				-- This is a block of test code for printing the internal values
+				-- of fluids on load to watch for changes or a return of
+				-- pressure_to_speed_ratio 
+				--
+				--if type_name == "fluid" then
+				--	for k,v in pairs(prototype) do
+				--		log(tostring(k).."="..tostring(v))
+				--	end
+				--end
+				
+				-- While splitters have a speed coefficient, it is not actually tied
+				-- to their belt speed, so it's not really a coefficient. Adjusting
+				-- it as a speed and duration works fine.
+				--
 				if type_name == "splitter" and prototype["structure_animation_speed_coefficient"] then
 					prototype["structure_animation_speed_coefficient"] = prototype["structure_animation_speed_coefficient"] * gtts_time_scale
 				end
@@ -232,6 +247,9 @@ local function adjust_speeds()
 					if prototype["energy_source"]["emissions"] then
 						prototype["energy_source"]["emissions"] = prototype["energy_source"]["emissions"] * gtts_time_scale
 					end
+					if prototype["energy_source"]["emissions_per_minute"] then
+						prototype["energy_source"]["emissions_per_minute"] = prototype["energy_source"]["emissions_per_minute"] * gtts_time_scale
+					end
 				end
 
 				-- Adjustments for Nuclear Reactors, Heat Pipes and Heat Exchangers.
@@ -264,15 +282,5 @@ local function adjust_speeds()
 	end
 end
 
--- Adjust mining tools seperately to avoid adjusting their "speed" property.
-local function adjust_mining_tools()
-	for prototype_name, prototype in pairs(data.raw["mining-tool"]) do
-		if prototype["durability"] then
-			prototype["durability"] = prototype["durability"] / gtts_time_scale
-		end
-	end
-end
-
 
 adjust_speeds()
-adjust_mining_tools()
