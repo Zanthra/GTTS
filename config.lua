@@ -232,7 +232,7 @@ prototype_speeds_recursive = {
 	"initial_frame_speed",
 	"frame_speed",
 	
-	"frequency",
+	--"frequency",
 }
 
 prototype_durations_recursive = {

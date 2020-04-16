@@ -7,5 +7,5 @@
   "contact": "zanthra+factoriogtts@gmail.com",
   "homepage": "https://forums.factorio.com/viewtopic.php?f=144&t=50281",
   "dependencies": ["base"],
-  "description": "Change the base UPS/FPS of Factorio."
+  "description": "Change the base UPS/FPS of Factorio without changing the game pace. Allows normal gameplay at 120hz."
 }
