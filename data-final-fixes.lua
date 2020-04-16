@@ -147,134 +147,144 @@ local function adjust_speeds()
 		if not skip then
 			-- Otherwise grab all the prototypes of that type.
 			for prototype_name, prototype in pairs(prototype_type) do
-				-- Adjust speeds.
-				for _,speed in ipairs(prototype_speeds) do
-					if prototype[speed] then
-						prototype[speed] = prototype[speed] * gtts_time_scale
+				--Check if this is an animation at prototype level.
+				local animation = false
+				if prototype["frame_count"] then
+					if prototype["frame_count"] > 1 then
+						animation = true
+						adjust_animation(prototype)
 					end
 				end
-				
-				-- Adjust power rates.
-				for _,rate in ipairs(prototype_power_rates) do
-					if prototype[rate] then
-						prototype[rate] = adjust_energy(prototype[rate])
-					end
-				end
-				
-				-- Adjust Durations.
-				for _,duration in ipairs(prototype_durations) do
-					if prototype[duration] then
-						prototype[duration] = prototype[duration] / gtts_time_scale
-					end
-				end
-				
-				-- Do recursive adjustments.
-				adjust_prototypes_recursive(prototype)
-				
-
-				-- Currently in 0.17 the fluid mechanics have not changed, except
-				-- to remove the pressure_to_speed_ratio that this mod was using
-				-- to make adjustment to fluid flow speeds.
-				--
-				-- Allow the fluid speed adjustment to be disabled as it may be
-				-- terribly inaccurate to simply change the pressure to speed
-				-- ratio like this.
-				--if gtts_fluid_speed then
-				--	if prototype["pressure_to_speed_ratio"] then
-				--		prototype["pressure_to_speed_ratio"] = prototype["pressure_to_speed_ratio"] * gtts_time_scale
-				--	end
-				--end
-				
-				-- This is a block of test code for printing the internal values
-				-- of fluids on load to watch for changes or a return of
-				-- pressure_to_speed_ratio 
-				--
-				--if type_name == "fluid" then
-				--	for k,v in pairs(prototype) do
-				--		log(tostring(k).."="..tostring(v))
-				--	end
-				--end
-				
-				-- While splitters have a speed coefficient, it is not actually tied
-				-- to their belt speed, so it's not really a coefficient. Adjusting
-				-- it as a speed and duration works fine.
-				--
-				if type_name == "splitter" and prototype["structure_animation_speed_coefficient"] then
-					prototype["structure_animation_speed_coefficient"] = prototype["structure_animation_speed_coefficient"] * gtts_time_scale
-				end
-				if type_name == "splitter" and prototype["structure_animation_movement_cooldown"] then
-					prototype["structure_animation_movement_cooldown"] = prototype["structure_animation_movement_cooldown"] / gtts_time_scale
-				end
-
-				if type_name == "repair-tool" and prototype["durability"] then
-					prototype["durability"] = prototype["durability"] / gtts_time_scale
-				end
-
-				-- Some adjustments specific to attack_parameters.
-				if prototype["attack_parameters"] then
-					if prototype["attack_parameters"]["cooldown"] then
-						prototype["attack_parameters"]["cooldown"] = prototype["attack_parameters"]["cooldown"] / gtts_time_scale
-					end
-					if prototype["attack_parameters"]["warmup"] then
-						prototype["attack_parameters"]["warmup"] = prototype["attack_parameters"]["warmup"] / gtts_time_scale
-					end
-					if      prototype["attack_parameters"]["ammo_type"] 
-						and prototype["attack_parameters"]["ammo_type"]["action"]
-						and prototype["attack_parameters"]["ammo_type"]["action"]["action_delivery"] then
-						if prototype["attack_parameters"]["ammo_type"]["action"]["action_delivery"]["cooldown"] then
-							prototype["attack_parameters"]["ammo_type"]["action"]["action_delivery"]["cooldown"] = prototype["attack_parameters"]["ammo_type"]["action"]["action_delivery"]["cooldown"] / gtts_time_scale
-						end
-						if prototype["attack_parameters"]["ammo_type"]["action"]["action_delivery"]["duration"] then
-							prototype["attack_parameters"]["ammo_type"]["action"]["action_delivery"]["duration"] = prototype["attack_parameters"]["ammo_type"]["action"]["action_delivery"]["duration"] / gtts_time_scale
+				if not animation then
+					-- Adjust speeds.
+					for _,speed in ipairs(prototype_speeds) do
+						if prototype[speed] then
+							prototype[speed] = prototype[speed] * gtts_time_scale
 						end
 					end
-				end
+					
+					-- Adjust power rates.
+					for _,rate in ipairs(prototype_power_rates) do
+						if prototype[rate] then
+							prototype[rate] = adjust_energy(prototype[rate])
+						end
+					end
+					
+					-- Adjust Durations.
+					for _,duration in ipairs(prototype_durations) do
+						if prototype[duration] then
+							prototype[duration] = prototype[duration] / gtts_time_scale
+						end
+					end
+					
+					-- Do recursive adjustments.
+					adjust_prototypes_recursive(prototype)
+					
 
-				-- Adjustments for energy sources including idle drain, as well as limits for roboports and accumulators.
-				if prototype["energy_source"] then
-					if prototype["energy_source"]["drain"] then
-						prototype["energy_source"]["drain"] = adjust_energy(prototype["energy_source"]["drain"])
+					-- Currently in 0.17 the fluid mechanics have not changed, except
+					-- to remove the pressure_to_speed_ratio that this mod was using
+					-- to make adjustment to fluid flow speeds.
+					--
+					-- Allow the fluid speed adjustment to be disabled as it may be
+					-- terribly inaccurate to simply change the pressure to speed
+					-- ratio like this.
+					--if gtts_fluid_speed then
+					--	if prototype["pressure_to_speed_ratio"] then
+					--		prototype["pressure_to_speed_ratio"] = prototype["pressure_to_speed_ratio"] * gtts_time_scale
+					--	end
+					--end
+					
+					-- This is a block of test code for printing the internal values
+					-- of fluids on load to watch for changes or a return of
+					-- pressure_to_speed_ratio 
+					--
+					--if type_name == "fluid" then
+					--	for k,v in pairs(prototype) do
+					--		log(tostring(k).."="..tostring(v))
+					--	end
+					--end
+					
+					-- While splitters have a speed coefficient, it is not actually tied
+					-- to their belt speed, so it's not really a coefficient. Adjusting
+					-- it as a speed and duration works fine.
+					--
+					if type_name == "splitter" and prototype["structure_animation_speed_coefficient"] then
+						prototype["structure_animation_speed_coefficient"] = prototype["structure_animation_speed_coefficient"] * gtts_time_scale
 					end
-					if prototype["energy_source"]["input_flow_limit"] then
-						prototype["energy_source"]["input_flow_limit"] = adjust_energy(prototype["energy_source"]["input_flow_limit"])
+					if type_name == "splitter" and prototype["structure_animation_movement_cooldown"] then
+						prototype["structure_animation_movement_cooldown"] = prototype["structure_animation_movement_cooldown"] / gtts_time_scale
 					end
-					if prototype["energy_source"]["output_flow_limit"] then
-						prototype["energy_source"]["output_flow_limit"] = adjust_energy(prototype["energy_source"]["output_flow_limit"])
-					end
-					if prototype["energy_source"]["max_transfer"] then
-						prototype["energy_source"]["max_transfer"] = adjust_energy(prototype["energy_source"]["max_transfer"])
-					end
-					if prototype["energy_source"]["emissions"] then
-						prototype["energy_source"]["emissions"] = prototype["energy_source"]["emissions"] * gtts_time_scale
-					end
-					if prototype["energy_source"]["emissions_per_minute"] then
-						prototype["energy_source"]["emissions_per_minute"] = prototype["energy_source"]["emissions_per_minute"] * gtts_time_scale
-					end
-				end
 
-				-- Adjustments for Nuclear Reactors, Heat Pipes and Heat Exchangers.
-				if prototype["heat_buffer"] then
-					if prototype["heat_buffer"]["max_transfer"] then
-						prototype["heat_buffer"]["max_transfer"] = adjust_energy(prototype["heat_buffer"]["max_transfer"])
+					if type_name == "repair-tool" and prototype["durability"] then
+						prototype["durability"] = prototype["durability"] / gtts_time_scale
 					end
-				end
 
-				-- Spawning Cooldown is a table with minimum and maximum cooldowns.
-				if prototype["spawning_cooldown"] then
-					for i = 1, #prototype["spawning_cooldown"] do
-						prototype["spawning_cooldown"][i] = prototype["spawning_cooldown"][i] / gtts_time_scale
+					-- Some adjustments specific to attack_parameters.
+					if prototype["attack_parameters"] then
+						if prototype["attack_parameters"]["cooldown"] then
+							prototype["attack_parameters"]["cooldown"] = prototype["attack_parameters"]["cooldown"] / gtts_time_scale
+						end
+						if prototype["attack_parameters"]["warmup"] then
+							prototype["attack_parameters"]["warmup"] = prototype["attack_parameters"]["warmup"] / gtts_time_scale
+						end
+						if      prototype["attack_parameters"]["ammo_type"] 
+							and prototype["attack_parameters"]["ammo_type"]["action"]
+							and prototype["attack_parameters"]["ammo_type"]["action"]["action_delivery"] then
+							if prototype["attack_parameters"]["ammo_type"]["action"]["action_delivery"]["cooldown"] then
+								prototype["attack_parameters"]["ammo_type"]["action"]["action_delivery"]["cooldown"] = prototype["attack_parameters"]["ammo_type"]["action"]["action_delivery"]["cooldown"] / gtts_time_scale
+							end
+							if prototype["attack_parameters"]["ammo_type"]["action"]["action_delivery"]["duration"] then
+								prototype["attack_parameters"]["ammo_type"]["action"]["action_delivery"]["duration"] = prototype["attack_parameters"]["ammo_type"]["action"]["action_delivery"]["duration"] / gtts_time_scale
+							end
+						end
 					end
-				end
 
-				-- Damage per tick is a type with the ammount as a sub variable.
-				if prototype["damage_per_tick"] and prototype["damage_per_tick"]["ammount"] then
-					prototype["damage_per_tick"]["ammount"] = prototype["damage_per_tick"]["ammount"] * gtts_time_scale
-				end
-				
-				-- Poison Capsule.
-				if prototype["capsule_action"] then
-					if prototype["capsule_action"]["cooldown"] then
-						prototype["capsule_action"]["cooldown"] = prototype["capsule_action"]["cooldown"] / gtts_time_scale
+					-- Adjustments for energy sources including idle drain, as well as limits for roboports and accumulators.
+					if prototype["energy_source"] then
+						if prototype["energy_source"]["drain"] then
+							prototype["energy_source"]["drain"] = adjust_energy(prototype["energy_source"]["drain"])
+						end
+						if prototype["energy_source"]["input_flow_limit"] then
+							prototype["energy_source"]["input_flow_limit"] = adjust_energy(prototype["energy_source"]["input_flow_limit"])
+						end
+						if prototype["energy_source"]["output_flow_limit"] then
+							prototype["energy_source"]["output_flow_limit"] = adjust_energy(prototype["energy_source"]["output_flow_limit"])
+						end
+						if prototype["energy_source"]["max_transfer"] then
+							prototype["energy_source"]["max_transfer"] = adjust_energy(prototype["energy_source"]["max_transfer"])
+						end
+						if prototype["energy_source"]["emissions"] then
+							prototype["energy_source"]["emissions"] = prototype["energy_source"]["emissions"] * gtts_time_scale
+						end
+						if prototype["energy_source"]["emissions_per_minute"] then
+							prototype["energy_source"]["emissions_per_minute"] = prototype["energy_source"]["emissions_per_minute"] * gtts_time_scale
+						end
+					end
+
+					-- Adjustments for Nuclear Reactors, Heat Pipes and Heat Exchangers.
+					if prototype["heat_buffer"] then
+						if prototype["heat_buffer"]["max_transfer"] then
+							prototype["heat_buffer"]["max_transfer"] = adjust_energy(prototype["heat_buffer"]["max_transfer"])
+						end
+					end
+
+					-- Spawning Cooldown is a table with minimum and maximum cooldowns.
+					if prototype["spawning_cooldown"] then
+						for i = 1, #prototype["spawning_cooldown"] do
+							prototype["spawning_cooldown"][i] = prototype["spawning_cooldown"][i] / gtts_time_scale
+						end
+					end
+
+					-- Damage per tick is a type with the ammount as a sub variable.
+					if prototype["damage_per_tick"] and prototype["damage_per_tick"]["ammount"] then
+						prototype["damage_per_tick"]["ammount"] = prototype["damage_per_tick"]["ammount"] * gtts_time_scale
+					end
+					
+					-- Poison Capsule.
+					if prototype["capsule_action"] then
+						if prototype["capsule_action"]["cooldown"] then
+							prototype["capsule_action"]["cooldown"] = prototype["capsule_action"]["cooldown"] / gtts_time_scale
+						end
 					end
 				end
 			end

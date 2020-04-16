@@ -1,13 +1,25 @@
 
+---------------------------------------------------------------------------------------------------
+Version: 1.5.1
+Date: 2020.04.15
 
-Version 1.5.0 2020-03-04
-------------------------
+Added pollution_absorption_per_second for 0.18, along with 
+other miscelaneous adjustments.
+
+Added a fix for adjusting animation speeds for animations
+that are stored in the data at the prototype level,
+particularly for compatibility with DiscoScience.
+
+---------------------------------------------------------------------------------------------------
+Version: 1.5.0
+Date: 2020.03.04
 
 This just updates the compatible version for GTTS to 0.18, no
 new speeds or durations have been added.
 
-Version 1.4.2 2020-03-04
-------------------------
+---------------------------------------------------------------------------------------------------
+Version: 1.4.2
+Date: 2020.03.04
 
 Changed the method of modifying and saving game saved properties
 such as day length.
@@ -15,20 +27,23 @@ such as day length.
 Also fixed spelling of Absorption which will fix the ammount
 of pollution added or removed per tick.
 
-Version 1.4.1 2019-02-28
-------------------------
+---------------------------------------------------------------------------------------------------
+Version: 1.4.1
+Date: 2019.02.28
 
 Added new speeds and durations for new spitter projectiles and
 beams. Also added adjustment for splitter animation speed.
 
-Version 1.4.0 2019-02-26
-------------------------
+---------------------------------------------------------------------------------------------------
+Version: 1.4.0
+Date: 2019..02.26
 
 Minor Changes to make compatable with Factorio 0.17. No new
 changes added. Minor debugging.
 
-Version 1.3.5 2018-07-10
-------------------------
+---------------------------------------------------------------------------------------------------
+Version: 1.3.5
+Date: 2018.07.10
 
 From a suggestion I saw here on the Forums:
 https://forums.factorio.com/viewtopic.php?f=5&t=60842
@@ -45,8 +60,9 @@ The following list shows some of the valid UPS values between
 The mod settings now also have tooltips to provide a bit more
 infomration on the settings.
 
-Version 1.3.4 2018-06-10
-------------------------
+---------------------------------------------------------------------------------------------------
+Version: 1.3.4
+Date: 2018.06.10
 
 After a brief discussion with Klonan on the Factorio discord, I
 learned that there is indeed an easy way to manage day/night
@@ -54,8 +70,9 @@ length. I implemented a runtime setting to adjust this for the
 main surface (Nauvis), which brings solar power and accumulator
 rations in line with vanilla without use of another mod.
 
-Version 1.3.3 2018-06-10
-------------------------
+---------------------------------------------------------------------------------------------------
+Version: 1.3.3
+Date: 2018.06.10
 
 This version removes the welcome window due to various potential
 issues I don't feel confident in my ability to track down and fix.
@@ -66,15 +83,17 @@ crafting rates manually. It also disables all runtime mod settings
 changes. This can substantially improve the mdos compatibility
 in multiplayer or in concjunction with other mods.
 
-Version 1.3.2 2018-01-31
-------------------------
+---------------------------------------------------------------------------------------------------
+Version: 1.3.2
+Date: 2018.01.31
 
 Changed the welcome popup to not appear on tick 1 of the
 game so as not to interfere with the game tips that prevents
 interaction with the UI.
 
-Version 1.3.1 2018-01-31
-------------------------
+---------------------------------------------------------------------------------------------------
+Version: 1.3.1
+Date: 2018.01.31
 
 Fixed the check for the setting used to disasble the welcome
 message so that it actually disables the welcome message.
@@ -85,8 +104,9 @@ welcome message if it appears too frequently.
 
 Also nil the UI event handler to clean up resources.
 
-Version 1.3.0 2018-01-31
-------------------------
+---------------------------------------------------------------------------------------------------
+Version: 1.3.0
+Date: 2018.01.31
 
 Fixed character movement animation, and player mining speed,
 along with addition and reorganization of many of the adjusted.
@@ -97,9 +117,9 @@ This release introduces a welcome message to help people
 set up the mod, and changes the default to a neutral 60 FPS.
 The notification can be disabled in the mod options.
 
-
-Version 1.2.0 2017-07-25
-------------------------
+---------------------------------------------------------------------------------------------------
+Version: 1.2.0
+Date: 2017.07.25
 
 Added per map options for adjusting values for pollution
 enemy expansions, evolution, and hand crafting rates.
@@ -107,9 +127,9 @@ enemy expansions, evolution, and hand crafting rates.
 Changed train properties to more accurately adjust their
 acceleration and collision damage.
 
-
-Version 1.1.2 2017-07-25
-------------------------
+---------------------------------------------------------------------------------------------------
+Version: 1.1.2
+Date: 2017.07.25
 
 Added the following properties to be adjusted as power
 rates used by roboports, solar panels, combinators,
@@ -121,16 +141,16 @@ idle_energy_usage
 lamp_energy_usage
 active_energy_usage
 
-
-Version 1.1.1 2017-07-24
-------------------------
+---------------------------------------------------------------------------------------------------
+Version: 1.1.1
+Date: 2017.07.24
 
 Made adjustments to the "heat_buffer" "max_trasfer"
 property of nuclear reactors and heat pipes.
 
-
-Version 1.1.0 2017-07-17
-------------------------
+---------------------------------------------------------------------------------------------------
+Version: 1.1.0
+Date: 2017.07.17
 
 Fixed the events related to changing the game speed
 so that it properly updates the game speed when and
@@ -145,17 +165,17 @@ flow_length_in_ticks
 Due to problems at low target frame rates and the
 minor ingame impact of these values.
 
-
-Version 1.0.1 2017-07-16
-------------------------
+---------------------------------------------------------------------------------------------------
+Version: 1.0.1
+Date: 2017.07.16
 
 Small changes to readme, and removed nonfunctioning
 option to immediately reset the game speed of a
 running game.
 
-
-Version 1.0.0 2017-07-16
-------------------------
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 2017.07.16
 
 This mod now also adjusts the object weights and the
 energy per hit point of collision damage in order to
@@ -164,17 +184,17 @@ properly adjust the kinetic energy of vehicles.
 The mod also now adjusts mining and repair tool
 durability which was based on ticks used.
 
-
-Version 0.2.1 2017-07-01
-------------------------
+---------------------------------------------------------------------------------------------------
+Version: 0.2.1
+Date: 2017.07.01
 
 Excluded "god-controller" from modified prototypes due
 to minimum speed issues causing error loading into
 Factorio version 0.15.26 .
 
-
-Version 0.2.0 2017-06-28
-------------------------
+---------------------------------------------------------------------------------------------------
+Version: 0.2.0
+Date: 2017.06.28
 
 Added a load of missing modifications to time ratios, in
 particular changed accumulator Input and Output rates,
@@ -189,16 +209,16 @@ Added a wild guess fluid speed modification. Since the
 math beind fluid speeds is pretty obscured, and I don't
 have a good way of testing it, use at your own risk.
 
-
-Version 0.1.1 2017-06-27
-------------------------
+---------------------------------------------------------------------------------------------------
+Version: 0.1.1
+Date: 2017.06.27
 
 First release to mod portal as mod is stable, and many
 of the initial goals are accomplished.
 
-
-Version 0.1.0 2017-06-25
-----------------------
+---------------------------------------------------------------------------------------------------
+Version: 0.1.0
+Date: 2017.06.25
 
 Created mod base and modified a collection of speeds.
 

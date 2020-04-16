@@ -79,6 +79,7 @@ prototype_speeds = {
 	----------------------
 	"pollution_absorption_absolute", -- How much pollution an entity absorbes each tick no matter how much pollution is in that chunk.
 	"pollution_absorption_proportional", -- What percent of the pollution in a chuck the entity will absorb each tick.
+	"pollution_absorption_per_second",
 	-- Also see emissions-per-tick under buildings above.
 
 	-----------------
@@ -95,13 +96,12 @@ prototype_speeds = {
 	-- Miscelaneous speeds --
 	-------------------------
 
-	"initial-vertical-speed",
-	"initial-frame-speed",
 	"opening_speed",
 	"splash_speed",
 	"particle_horizontal_speed",
 	"frame_main_scanner_movement_speed",
 	"stop_trigger_speed",
+	
 	}
 
 prototype_durations = {
@@ -227,10 +227,17 @@ prototype_speeds_recursive = {
 	"starting_speed",
 	--"starting_frame_speed",
 	"starting_vertical_speed",
-	"initial_vertical_speed",
 	"speed_from_center",
+	"initial_vertical_speed",
+	"initial_frame_speed",
+	"frame_speed",
 	
+	"frequency",
 }
 
 prototype_durations_recursive = {
+	
+	"fade_in_ticks",
+	"fade_out_ticks",
+
 }
