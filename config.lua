@@ -58,7 +58,9 @@ prototype_speeds = {
 	"max_speed", -- A variable affecting the speed at which trains will stop accelerating, even if other factors would allow them to go faster.
 	"braking_force", -- Base braking force for trains.
 	"friction", -- Friction for cars and tanks as a percent of speed each tick.
+	"friction_force",
 	"air-resistance", -- Percent of train speed lost each tick.
+	"torso_rotation_speed", -- Spidertron Torso rotation speed
 
 	-------------------
 	-- Combat Speeds --
@@ -101,6 +103,8 @@ prototype_speeds = {
 	"particle_horizontal_speed",
 	"frame_main_scanner_movement_speed",
 	"stop_trigger_speed",
+	"sound_scaling_ratio",
+	"sound_minimum_speed",
 	
 	}
 
@@ -120,7 +124,6 @@ prototype_durations = {
 	-- Actual Durations
 	"maximum_lifetimie",
 	"life_time",
-	"time_before_removed",
 	"initial_lifetime",
 	"burnt_patch_lifetime",
 	"min_pursue_time",
@@ -128,6 +131,7 @@ prototype_durations = {
 	"duration",
 	"fade_in_duration",
 	"fade_out_duration",
+	"fade_in_out_ticks",
 	"fade_away_duration",
 	"smoke_fade_in_duration",
 	"smoke_fade_out_duration",
@@ -193,6 +197,7 @@ prototype_power_rates = {
 	"energy_usage_per_tick",
 	"active_energy_usage",
 	"lamp_energy_usage",
+	"movement_energy_consumption",
 	
 	-- Production rather than consumption.
 	"production",
@@ -230,6 +235,8 @@ prototype_speeds_recursive = {
 	"speed_from_center",
 	"initial_vertical_speed",
 	"initial_frame_speed",
+	"initial_movement_speed",
+	"movement_acceleration",
 	"frame_speed",
 	
 	--"frequency",
@@ -239,5 +246,12 @@ prototype_durations_recursive = {
 	
 	"fade_in_ticks",
 	"fade_out_ticks",
+}
+
+prototype_values_clamp_high = {
+	time_to_live = 2000000000,
+	fade_out_duration = 255,
+	damage_interval = 2000000000,
+	time_before_removed = 2000000000,
 
 }

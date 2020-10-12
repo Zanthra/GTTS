@@ -174,6 +174,13 @@ local function adjust_speeds()
 					for _,duration in ipairs(prototype_durations) do
 						if prototype[duration] then
 							prototype[duration] = prototype[duration] / gtts_time_scale
+							
+							for clamp_key,clamp_value in pairs(prototype_values_clamp_high) do
+								if duration == clamp_key and prototype[duration] > clamp_value then
+									log("Object: "..prototype_name.." Key: "..clamp_key.." Value: "..prototype[duration].." too high clamped to: "..clamp_value)
+									prototype[duration] = clamp_value
+								end
+							end
 						end
 					end
 					

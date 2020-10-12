@@ -1,5 +1,25 @@
 
 ---------------------------------------------------------------------------------------------------
+Version: 1.6.0
+Date: 2020.11.10
+
+Added movement speeds and power rates for spidertron,
+while the leg speeds have been adjusted, unfortunately
+it seems that the torso's speed is not something that
+can be changed with prototypes, but it's better at least
+than with no adjustment.
+
+Added a clamping for modded and unmodded values that
+may exceed certain limits in the game. For example
+beams used by picker pipe tools had a damage interval
+so high that any increase due to GTTS would cause it to
+fail to load. Please let me know of any other such values
+that need to be added to exceptions on the mod
+discussion forums.
+
+Updated mod compatibility version to 1.0.
+
+---------------------------------------------------------------------------------------------------
 Version: 1.5.1
 Date: 2020.04.15
 
