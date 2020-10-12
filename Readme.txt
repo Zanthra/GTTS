@@ -1,3 +1,15 @@
+GTTS 1.6.0 2020-11-10
+=====================
+
+No major changes except to add some adjustments to spidertron
+speed, although it's rather wobbly at high frame rates due to
+the lack of control of how fast the torso can move around
+independent of the legs.
+
+Also added some fixes for certain very large valus being
+modified to be even larger with some other mods.
+
+
 GTTS 1.5.1 2020-04-15
 =====================
 
