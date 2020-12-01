@@ -1,16 +1,4 @@
-GTTS 1.6.0 2020-11-10
-=====================
-
-No major changes except to add some adjustments to spidertron
-speed, although it's rather wobbly at high frame rates due to
-the lack of control of how fast the torso can move around
-independent of the legs.
-
-Also added some fixes for certain very large valus being
-modified to be even larger with some other mods.
-
-
-GTTS 1.5.1 2020-04-15
+GTTS 1.6.1 2020-12-01
 =====================
 
 This mod changes all available prototype speeds and durations to
@@ -77,10 +65,6 @@ Commands:
 
 /c game.speed = {target-ups} / 60
 /c game.player.character.character_crafting_speed_modifier = 60 / {target-ups} - 1
-
-I would love to get in touch with anyone who would be interested
-in trying this in multiplayer to check compatability or look for
-any bugs. Let me know.
 
 Zanthra (zanthra+factoriogtts@gmail.com)
 
