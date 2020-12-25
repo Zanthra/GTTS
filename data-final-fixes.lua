@@ -68,7 +68,15 @@ local function adjust_prototypes_recursive(object)
 	for _,duration in ipairs(prototype_durations_recursive) do
 		if object[duration] and not object[duration.."+gtts"] then
 			object[duration.."+gtts"] = true
+
 			object[duration] = object[duration] / gtts_time_scale
+
+			if prototype_values_clamp_low[duration] then
+				if prototype[duration] < prototype_values_clamp_low[duration] then
+					log("Object: "..prototype_name.." Key: "..duration.." Value: "..prototype[duration].." too low clamped to: "..prototype_values_clamp_low[duration])
+					prototype[duration] = prototype_values_clamp_low[duration]
+				end
+			end
 		end
 	end
 
@@ -175,10 +183,17 @@ local function adjust_speeds()
 						if prototype[duration] then
 							prototype[duration] = prototype[duration] / gtts_time_scale
 							
-							for clamp_key,clamp_value in pairs(prototype_values_clamp_high) do
-								if duration == clamp_key and prototype[duration] > clamp_value then
-									log("Object: "..prototype_name.." Key: "..clamp_key.." Value: "..prototype[duration].." too high clamped to: "..clamp_value)
-									prototype[duration] = clamp_value
+							if prototype_values_clamp_high[duration] then
+								if prototype[duration] > prototype_values_clamp_high[duration] then
+									log("Object: "..prototype_name.." Key: "..duration.." Value: "..prototype[duration].." too high clamped to: "..prototype_values_clamp_high[duration])
+									prototype[duration] = prototype_values_clamp_high[duration]
+								end
+							end
+
+							if prototype_values_clamp_low[duration] then
+								if prototype[duration] < prototype_values_clamp_low[duration] then
+									log("Object: "..prototype_name.." Key: "..duration.." Value: "..prototype[duration].." too low clamped to: "..prototype_values_clamp_low[duration])
+									prototype[duration] = prototype_values_clamp_low[duration]
 								end
 							end
 						end

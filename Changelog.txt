@@ -1,5 +1,13 @@
 
 ---------------------------------------------------------------------------------------------------
+Version: 1.6.2
+Date: 2020.12.25
+
+Added clamping for values that need a minimum and added
+a minimum value for duration to 1 for compatibility with
+some mods.
+
+---------------------------------------------------------------------------------------------------
 Version: 1.6.1
 Date: 2020.12.01
 

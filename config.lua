@@ -255,3 +255,8 @@ prototype_values_clamp_high = {
 	time_before_removed = 2000000000,
 
 }
+
+
+prototype_values_clamp_low = {
+	duration = 1,
+}
