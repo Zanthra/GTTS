@@ -33,12 +33,12 @@ data:extend(
     default_value = false,
   },
 
---  {
---    type = "bool-setting",
---    name = "gtts-fluid-speed",
---    setting_type = "startup",
---    default_value = true,
---  },
+  {
+    type = "bool-setting",
+    name = "gtts-fluid-speed",
+    setting_type = "startup",
+    default_value = false,
+  },
   {
     type = "bool-setting",
     name = "gtts-Reset-GameSpeed",

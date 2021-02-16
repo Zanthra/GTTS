@@ -80,6 +80,30 @@ local function adjust_prototypes_recursive(object)
 		end
 	end
 
+	if type(object) == "table" then
+		if gtts_fluid_speed then
+			local fbscale = gtts_time_scale
+			if object["pipe_connections"] then
+				if not object["fluidbox+gtts"] then
+					object["fluidbox+gtts"] = true
+					if object["base_area"] then
+						object["base_area"] = object["base_area"] / fbscale
+					else
+						object["base_area"] = 1 / fbscale
+					end
+					if object["height"] then
+						object["height"] = object["height"] * fbscale
+					else
+						object["height"] = 1 * fbscale
+					end
+					if object["base_level"] then
+						object["base_level"] = object["base_level"] * fbscale
+					end
+				end
+			end
+		end
+	end
+
 	-- Now recursively work through each sub object of this object, and
 	-- adjust animations as nescessary, or just pass it on to this function.
 	--
@@ -202,7 +226,6 @@ local function adjust_speeds()
 					-- Do recursive adjustments.
 					adjust_prototypes_recursive(prototype)
 					
-
 					-- Currently in 0.17 the fluid mechanics have not changed, except
 					-- to remove the pressure_to_speed_ratio that this mod was using
 					-- to make adjustment to fluid flow speeds.

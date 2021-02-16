@@ -1,5 +1,16 @@
 
 ---------------------------------------------------------------------------------------------------
+Version: 1.6.3
+Date: 2021.02.16
+
+Added a fluid flow adjustment for low UPS based on the height
+and base_area of prototype fluid boxes. Thanks to psznm on
+the mod discussion forum for the idea. Caution is advised due
+to potential for significant fluid oscillation, and it is not
+recommended for using at high UPS as at high UPS it will slow
+fluid flow dramatically.
+
+---------------------------------------------------------------------------------------------------
 Version: 1.6.2
 Date: 2020.12.25
 
