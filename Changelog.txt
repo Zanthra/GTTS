@@ -1,5 +1,15 @@
 
 ---------------------------------------------------------------------------------------------------
+Version 1.6.4
+Date: 2022.05.15
+
+* Added clamp high values for duration and life_time to help
+compatability with other mods.
+* Added special adjustment code for the god-controller and other
+controllers to allow their movement_speed to be ajusted within
+some bounds.
+
+---------------------------------------------------------------------------------------------------
 Version: 1.6.3
 Date: 2021.02.16
 

@@ -253,7 +253,8 @@ prototype_values_clamp_high = {
 	fade_out_duration = 255,
 	damage_interval = 2000000000,
 	time_before_removed = 2000000000,
-
+	duration = 429496729,
+	life_time = 65535,
 }
 
 

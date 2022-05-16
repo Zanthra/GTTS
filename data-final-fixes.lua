@@ -39,8 +39,8 @@ local function adjust_prototypes_recursive(object)
 		-- Similar to the animations, as a double check to avoid potential
 		-- multiple references, tag each property that is changed so we
 		-- don't change it again.
-		if object[speed] and not object[speed.."-gtts"] then
-			object[speed.."-gtts"] = true
+		if object[speed] and not object[speed.."+gtts"] then
+			object[speed.."+gtts"] = true
 
 			-- A few speeds are a tables of values. In that case just adjust
 			-- all of them.
@@ -162,15 +162,35 @@ local function adjust_prototypes_recursive(object)
 	end
 end
 
-
+local function adjust_god_controller(prototype_type)
+	for _, prototype in ipairs(prototype_type) do
+		local speed = prototype["movement_speed"]
+		speed = speed * gtts_time_scale
+		if speed < 0.34375 then
+			speed = 0.34375
+		end
+		prototype["movement_speed"] = speed
+	end
+end
 
 local function adjust_speeds()
+
 	-- Get all prototype types from data.raw
 	for type_name, prototype_type in pairs(data.raw) do
 		skip = false
 
-		--Skip any prototype types listed in exclusions.
+		--Skip any prototype types listed in exclusions, or process certain
+		--prototypes specially.
 		for _, exclusion in ipairs(exclude_prototype_types) do
+			if type_name == "god-controller" then
+				adjust_god_controller(prototype_type)
+			end
+			if type_name == "editor-controller" then
+				adjust_god_controller(prototype_type)
+			end
+			if type_name == "spectator-controller" then
+				adjust_god_controller(prototype_type)
+			end
 			if type_name == exclusion then
 				skip = true
 			end

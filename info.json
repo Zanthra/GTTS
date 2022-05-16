@@ -1,11 +1,11 @@
 {
   "name": "GTTS",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "factorio_version": "1.1",
   "title": "Global Tick Time Scale",
   "author": "Zanthra",
   "contact": "zanthra+factoriogtts@gmail.com",
   "homepage": "https://forums.factorio.com/viewtopic.php?f=144&t=50281",
   "dependencies": ["base"],
-  "description": "Change the base UPS/FPS of Factorio without changing the game pace. Allows normal gameplay at 120hz."
+  "description": "Change the base UPS/FPS of Factorio without changing the game pace. Allows almost-normal gameplay at 120hz."
 }
