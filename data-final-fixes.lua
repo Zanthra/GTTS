@@ -163,7 +163,7 @@ local function adjust_prototypes_recursive(object)
 end
 
 local function adjust_god_controller(prototype_type)
-	for _, prototype in ipairs(prototype_type) do
+	for prototype_name, prototype in pairs(prototype_type) do
 		local speed = prototype["movement_speed"]
 		speed = speed * gtts_time_scale
 		if speed < 0.34375 then
@@ -178,19 +178,23 @@ local function adjust_speeds()
 	-- Get all prototype types from data.raw
 	for type_name, prototype_type in pairs(data.raw) do
 		skip = false
-
-		--Skip any prototype types listed in exclusions, or process certain
-		--prototypes specially.
+		
+		--Process some prototypes in other functions
+		if type_name == "god-controller" then
+			adjust_god_controller(prototype_type)
+			skip = true
+		end
+		if type_name == "editor-controller" then
+			adjust_god_controller(prototype_type)
+			skip = true
+		end
+		if type_name == "spectator-controller" then
+			adjust_god_controller(prototype_type)
+			skip = true
+		end
+		
+		--Skip any prototype types listed in exclusions
 		for _, exclusion in ipairs(exclude_prototype_types) do
-			if type_name == "god-controller" then
-				adjust_god_controller(prototype_type)
-			end
-			if type_name == "editor-controller" then
-				adjust_god_controller(prototype_type)
-			end
-			if type_name == "spectator-controller" then
-				adjust_god_controller(prototype_type)
-			end
 			if type_name == exclusion then
 				skip = true
 			end

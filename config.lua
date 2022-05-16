@@ -16,9 +16,6 @@ end
 
 -- This is a list of type exclusions that will not be adjusted.
 exclude_prototype_types = {
-	"god-controller",
-	"editor-controller",
-	"spectator-controller",
 	"mining-tool", -- Mining tool speed is tied in with player mining speed, and the animation rate is tied to the player property.
 	"module",
 }
