@@ -1,9 +1,9 @@
 require "config"
 
 local function adjust_energy(value)
-	start, stop = string.find(value, "[0123456789.]+")
+	local start, stop = string.find(value, "[0123456789.]+")
 	--Trim the KW MW KJ MJ etc ending off energy values and append it after adjusting the numbers.
-	new_value = tonumber(string.sub(value, start, stop))
+	local new_value = tonumber(string.sub(value, start, stop))
 	new_value = new_value * gtts_time_scale
 	return tostring(new_value)..string.sub(value, stop + 1, string.len(value))
 end
@@ -35,11 +35,13 @@ end
 --is not working right then to try to put an exception here.
 
 local function adjust_prototypes_recursive(object)
+	local skipall = false
 	for _,speed in ipairs(prototype_speeds_recursive) do
 		-- Similar to the animations, as a double check to avoid potential
 		-- multiple references, tag each property that is changed so we
 		-- don't change it again.
 		if object[speed] and not object[speed.."+gtts"] then
+			skipall = true
 			object[speed.."+gtts"] = true
 
 			-- A few speeds are a tables of values. In that case just adjust
@@ -110,51 +112,53 @@ local function adjust_prototypes_recursive(object)
 	-- Many animations are grouped into layers and the like, the majority
 	-- of the purpose of this recursion is to traverse all layers to reach
 	-- all of the pieces of the animations.
-	for sub_name,sub_object in pairs(object) do
-		-- Don't recursively adjust these objects or anything below them.
-		skip = false
-		for _, exclusion in ipairs(exclude_recursive) do
-			if sub_name == exclusion then
-				skip = true
+	if not skipall then
+		for sub_name, sub_object in pairs(object) do
+			-- Don't recursively adjust these objects or anything below them.
+			local skip = false
+			for _, exclusion in ipairs(exclude_recursive) do
+				if sub_name == exclusion then
+					skip = true
+				end
 			end
-		end
-		-- If we don't skip.
-		if not skip then
-			if type(sub_object) == "table" then
-				-- Here is how animations are identified, as an animation
-				-- requires more than one frame.
-				if sub_object["frame_count"] then
-					if sub_object["frame_count"] > 1 then
-						adjust_animation(sub_object)
-					end
-				else
-					-- Entities with crafting speeds have their own animation
-					-- speed control tied to the crafting speed. Since the
-					-- crafting speed has already been adjusted, changing the
-					-- animation speed will make the animation too fast or too
-					-- slow.
-					working_animation = false
-					if object["crafting_speed"] or object["animation-speed-coefficient"] then
-						if     sub_name == "working_visualisations"
-							or sub_name == "working_visualisations_disabled"
-							or sub_name == "animation"
-							or sub_name == "idle_animation" then
+			-- If we don't skip.
+			if not skip then
+				if type(sub_object) == "table" then
+					-- Here is how animations are identified, as an animation
+					-- requires more than one frame.
+					if sub_object["frame_count"] then
+						if sub_object["frame_count"] > 1 then
+							adjust_animation(sub_object)
+						end
+					else
+						-- Entities with crafting speeds have their own animation
+						-- speed control tied to the crafting speed. Since the
+						-- crafting speed has already been adjusted, changing the
+						-- animation speed will make the animation too fast or too
+						-- slow.
+						local working_animation = false
+						if object["crafting_speed"] or object["animation-speed-coefficient"] then
+							if sub_name == "working_visualisations"
+								or sub_name == "working_visualisations_disabled"
+								or sub_name == "animation"
+								or sub_name == "idle_animation" then
 								working_animation = true
+							end
 						end
-					end
 
-					if object["type"] == "mining_drill" then
-						if    sub_name == "animations"
-						   or sub_name == "shadow_animations" 
-						   or sub_name == "input_fluid_patch_shadow_animations" then
-							working_animation = true
+						if object["type"] == "mining_drill" then
+							if sub_name == "animations"
+								or sub_name == "shadow_animations"
+								or sub_name == "input_fluid_patch_shadow_animations" then
+								working_animation = true
+							end
 						end
-					end
 
-					-- If it's not a working animation, pass it back to this
-					-- function for further processing.
-					if not working_animation then
-						adjust_prototypes_recursive(sub_object)
+						-- If it's not a working animation, pass it back to this
+						-- function for further processing.
+						if not working_animation then
+							adjust_prototypes_recursive(sub_object)
+						end
 					end
 				end
 			end
@@ -162,7 +166,7 @@ local function adjust_prototypes_recursive(object)
 	end
 end
 
-local function adjust_god_controller(prototype_type)
+local function adjust_controller(prototype_type)
 	for prototype_name, prototype in pairs(prototype_type) do
 		local speed = prototype["movement_speed"]
 		speed = speed * gtts_time_scale
@@ -177,20 +181,15 @@ local function adjust_speeds()
 
 	-- Get all prototype types from data.raw
 	for type_name, prototype_type in pairs(data.raw) do
-		skip = false
-		
-		--Process some prototypes in other functions
-		if type_name == "god-controller" then
-			adjust_god_controller(prototype_type)
-			skip = true
-		end
-		if type_name == "editor-controller" then
-			adjust_god_controller(prototype_type)
-			skip = true
-		end
-		if type_name == "spectator-controller" then
-			adjust_god_controller(prototype_type)
-			skip = true
+		local skip = false
+
+		--Controller speed value needs a different clamping
+		--value, so handle them separately.
+		for _, controller in ipairs(controller_names) do
+			if type_name == controller then
+				adjust_controller(prototype_type)
+				skip = true
+			end
 		end
 		
 		--Skip any prototype types listed in exclusions
@@ -324,9 +323,6 @@ local function adjust_speeds()
 						end
 						if prototype["energy_source"]["emissions"] then
 							prototype["energy_source"]["emissions"] = prototype["energy_source"]["emissions"] * gtts_time_scale
-						end
-						if prototype["energy_source"]["emissions_per_minute"] then
-							prototype["energy_source"]["emissions_per_minute"] = prototype["energy_source"]["emissions_per_minute"] * gtts_time_scale
 						end
 					end
 

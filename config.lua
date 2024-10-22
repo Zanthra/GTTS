@@ -14,6 +14,13 @@ if settings.startup["gtts-fluid-speed"] then
 	gtts_fluid_speed = settings.startup["gtts-fluid-speed"].value
 end
 
+controller_names = {
+	"god-controller",
+	"editor-controller",
+	"spectator-controller",
+	"remote-controller",
+}
+
 -- This is a list of type exclusions that will not be adjusted.
 exclude_prototype_types = {
 	"mining-tool", -- Mining tool speed is tied in with player mining speed, and the animation rate is tied to the player property.
@@ -180,8 +187,8 @@ prototype_durations = {
 	--------------------------------------
 	-- Removed due to incompatabilities --
 	--------------------------------------
-	--"flow_length_in_ticks", --Causes crashes in some situations at low target frame rates
-	--"request_to_open_door_timeout", --Causes robots to get stuck at low target frame rates
+	"flow_length_in_ticks", --Causes crashes in some situations at low target frame rates
+	"request_to_open_door_timeout", --Causes robots to get stuck at low target frame rates
 }
 
 prototype_power_rates = {
@@ -212,6 +219,8 @@ prototype_power_rates = {
 
 -- Mostly these properties are here because they relate to smoke which can be generated
 -- at a great many different layers in the prototype tree.
+--
+-- Entries with a * indicate tables of values, such af those for emissions
 prototype_speeds_recursive = {
 	-- Acceleration is also handled specially in the recursive function since the
 	-- function tags the values to prevent them from being changed twice, this
@@ -235,6 +244,13 @@ prototype_speeds_recursive = {
 	"initial_movement_speed",
 	"movement_acceleration",
 	"frame_speed",
+	"emissions_per_minute",
+	"emissions_per_second",
+	"absorptions_per_second",
+	
+	--"absorptions_to_join_attack",
+	--"pollution",
+
 	
 	--"frequency",
 }
@@ -246,11 +262,11 @@ prototype_durations_recursive = {
 }
 
 prototype_values_clamp_high = {
-	time_to_live = 2000000000,
+	time_to_live = 4294967295,
 	fade_out_duration = 255,
-	damage_interval = 2000000000,
-	time_before_removed = 2000000000,
-	duration = 429496729,
+	damage_interval = 4294967295,
+	time_before_removed = 4294967295,
+	duration = 4294967295,
 	life_time = 65535,
 }
 
