@@ -15,17 +15,7 @@ local function adjust_animation(animation)
 	-- again. So the property "gtts_adjusted" is set true.
 	if not animation["gtts_adjusted"] then
 		animation["gtts_adjusted"] = true
-		if animation["animation_speed"] then
-			animation["animation_speed"] = animation["animation_speed"] * gtts_time_scale
-			if animation["hr_version"] then
-				animation["hr_version"]["animation_speed"] = animation["hr_version"]["animation_speed"] * gtts_time_scale
-			end
-		else
-			animation["animation_speed"] = gtts_time_scale
-			if animation["hr_version"] then
-				animation["hr_version"]["animation_speed"] = gtts_time_scale
-			end
-		end
+		animation["animation_speed"] = (animation["animation_speed"] or 1) * gtts_time_scale
 	end
 end
 
@@ -34,7 +24,7 @@ end
 --as it's better to put a specific change to the value when something
 --is not working right then to try to put an exception here.
 
-local function adjust_prototypes_recursive(object)
+local function adjust_prototypes_recursive(object, prototype_name)
 	--local skipall = false
 
 	for _,speed in ipairs(prototype_speeds_recursive) do
@@ -49,11 +39,14 @@ local function adjust_prototypes_recursive(object)
 			-- A few speeds are a tables of values. In that case just adjust
 			-- all of them.
 			if type(object[speed]) == "table" then
+				log("Table speed: "..prototype_name.." Key: "..speed)
 				for index,_ in ipairs(object[speed]) do
+					log(" Value: "..object[speed][index])
 					object[speed][index] = object[speed][index] * gtts_time_scale
 				end
 			else
 				if type(object[speed]) == "number" then
+					log("Object speed: "..prototype_name.." Key: "..speed.." Value: "..object[speed])
 					object[speed] = object[speed] * gtts_time_scale
 
 					-- An exception to the doubling is acceleration as
@@ -76,9 +69,9 @@ local function adjust_prototypes_recursive(object)
 			object[duration] = object[duration] / gtts_time_scale
 
 			if prototype_values_clamp_low[duration] then
-				if prototype[duration] < prototype_values_clamp_low[duration] then
-					log("Object: "..prototype_name.." Key: "..duration.." Value: "..prototype[duration].." too low clamped to: "..prototype_values_clamp_low[duration])
-					prototype[duration] = prototype_values_clamp_low[duration]
+				if object[duration] < prototype_values_clamp_low[duration] then
+					log("Object: "..prototype_name.." Key: "..duration.." Value: "..object[duration].." too low clamped to: "..prototype_values_clamp_low[duration])
+					object[duration] = prototype_values_clamp_low[duration]
 				end
 			end
 		end
@@ -115,6 +108,20 @@ local function adjust_prototypes_recursive(object)
 								if sub_object[k]["frequency"] then
 									sub_object[k]["frequency"] = sub_object[k]["frequency"] * gtts_time_scale
 								end
+							end
+						end
+						-- Handle hatches
+						if sub_name == "hatch_definitions" then
+							for _,hatch in ipairs(sub_object) do
+								hatch["busy_timeout_ticks"] = hatch["busy_timeout_ticks"] or 120
+								hatch["hatch_opening_ticks"] = hatch["hatch_opening_ticks"] or 80
+							end
+						end
+
+						-- Handle asteroid probabilities
+						if sub_name == "asteroid_spawn_definitions" then
+							if sub_object["probability"] then
+								sub_object["probability"] = sub_object["probability"] * gtts_time_scale
 							end
 						end
 						if sub_name == "perceived_performance" then
@@ -184,7 +191,7 @@ local function adjust_prototypes_recursive(object)
 						-- If it's not a working animation, pass it back to this
 						-- function for further processing.
 						if not working_animation then
-							adjust_prototypes_recursive(sub_object)
+							adjust_prototypes_recursive(sub_object, sub_name)
 						end
 					end
 				end
@@ -248,7 +255,13 @@ local function adjust_speeds()
 					-- Adjust speeds.
 					for _,speed in ipairs(prototype_speeds) do
 						if prototype[speed] then
-							prototype[speed] = prototype[speed] * gtts_time_scale
+							if type(prototype[speed]) == "table" then
+								for _,v in ipairs(prototype[speed]) do
+									v = v * gtts_time_scale
+								end
+							else
+								prototype[speed] = prototype[speed] * gtts_time_scale
+							end
 						end
 					end
 					
@@ -281,15 +294,15 @@ local function adjust_speeds()
 					end
 					
 					-- Do recursive adjustments.
-					adjust_prototypes_recursive(prototype)
+					adjust_prototypes_recursive(prototype, prototype_name)
 					
-					-- Construction robots cannot move if their speed is below about 0.00477, make sure
-					-- that with out of energy multiplier it cannot drop that far.
+					-- Construction robots cannot move if their x and y velocities both individually drop below
+					-- 2^-8. Thus the safe minimum speed for robots is 2^-8 * sqrt(2) or about 0.0056
 					if type_name == "construction-robot" or type_name == "logistic-robot" then
 						if prototype["speed"] and prototype["speed_multiplier_when_out_of_energy"] then
-							if prototype["speed"] * prototype["speed_multiplier_when_out_of_energy"] < 0.005 then
-								log("Object: "..prototype_name.." Robot speed: "..prototype["speed"].." OOE multiplier: "..prototype["speed_multiplier_when_out_of_energy"].." Potential minimum speed: "..(prototype["speed"] * prototype["speed_multiplier_when_out_of_energy"]).." less than 0.005, boosting multiplier to: "..(0.005 / prototype["speed"]))
-								prototype["speed_multiplier_when_out_of_energy"] = 0.005 / prototype["speed"]
+							if prototype["speed"] * prototype["speed_multiplier_when_out_of_energy"] < 0.0056 then
+								log("Object: "..prototype_name.." Robot speed: "..prototype["speed"].." OOE multiplier: "..prototype["speed_multiplier_when_out_of_energy"].." Potential minimum speed: "..(prototype["speed"] * prototype["speed_multiplier_when_out_of_energy"]).." less than 0.0056, boosting multiplier to: "..(0.0056 / prototype["speed"]))
+								prototype["speed_multiplier_when_out_of_energy"] = 0.0056 / prototype["speed"]
 							end
 						end
 					end

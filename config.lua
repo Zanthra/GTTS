@@ -109,6 +109,16 @@ prototype_speeds = {
 	"stop_trigger_speed",
 	"sound_scaling_ratio",
 	"sound_minimum_speed",
+
+	----------------------
+	-- Space Age Speeds --
+	----------------------
+	
+	"arm_speed_base",
+	"arm_angular_speed_cap_base",
+	"production_health_effect",
+	"max_fluid_usage",
+
 	
 	}
 
@@ -135,7 +145,7 @@ prototype_durations = {
 	"burnt_patch_lifetime",
 	"min_pursue_time",
 	"distraction_cooldown",
-	"duration",
+	--"duration",
 	"fade_in_duration",
 	"fade_out_duration",
 	"fade_in_out_ticks",
@@ -149,8 +159,11 @@ prototype_durations = {
 	"time_before_removed",
 	"time_to_live",
 	"opened_duration",
+	"robot_opened_duration",
 	"particle_alpha_blend_duration",
 	"spoil_ticks",
+	"time_to_damage",
+	"effect_duration",
 	
 	-- Cooldowns
 
@@ -175,6 +188,8 @@ prototype_durations = {
 
 	"early_death_ticks",
 	"damage_interval",
+
+	"alert_after_time",
 	
 
 	"particle_fade_out_duration",
@@ -206,6 +221,8 @@ prototype_power_rates = {
 	"active_energy_usage",
 	"lamp_energy_usage",
 	"movement_energy_consumption",
+	"passive_energy_usage",
+
 	
 	-- Production rather than consumption.
 	"production",
@@ -219,6 +236,10 @@ prototype_power_rates = {
 	"power",
 	"max_power",
 	"braking_power",
+
+	-- Misc
+	"heating_energy",
+	"crane_energy_usage",
 }
 
 -- Mostly these properties are here because they relate to smoke which can be generated
@@ -252,6 +273,16 @@ prototype_speeds_recursive = {
 	"emissions_per_second",
 	"absorptions_per_second",
 
+	"tree_leaf_distortion_speed_far",
+	"tree_leaf_distortion_speed_near",
+	"tree_shadow_speed",
+
+	"asteroid_spawning_with_random_orientation_max_speed",
+	"ejected_item_speed",
+
+	"train_pushed_by_player_max_speed",
+	"walking_sound_count_reduction_rate",
+	"moving_sound_count_reduction_rate",
 
 	
 	--"absorptions_to_join_attack",
@@ -269,6 +300,43 @@ prototype_durations_recursive = {
 	"particle_spawn_interval",
 	"particle_spawn_timeout",
 
+	"ease_in_duration",
+	"ease_out_duration",
+	"duration",
+
+	"platform_to_planet_duration_a",
+	"platform_to_planet_duration_b",
+    "platform_to_planet_hatch_open",
+
+    "impostor_start_tick",
+    "rocket_separation_tick",
+    "rocket_separation_end_tick",
+    "flight_duration",
+    "solo_duration",
+
+	"special_action_tick",
+	"draw_switch_tick",
+	"intermezzo_min_duration",
+	"intermezzo_max_duration",
+
+	"timestamp",
+	"busy_timeout_ticks",
+	"hatch_opening_ticks",
+	"end_time",
+
+	"space_platform_dump_cooldown",
+	"asteroid_collector_navmesh_refresh_tick_interval",
+
+	"train_temporary_stop_wait_time",
+	"train_time_wait_condition_default",
+	"train_inactivity_wait_condition_default",
+
+	"ejected_item_lifetime",
+	"music_transition_fade_out_ticks",
+	"music_transition_pause_ticks",
+	"music_transition_fade_in_ticks",
+	"environment_sounds_transition_fade_in_ticks",
+	
 }
 
 prototype_values_clamp_high = {
