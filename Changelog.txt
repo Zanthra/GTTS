@@ -1,5 +1,24 @@
 
 ---------------------------------------------------------------------------------------------------
+Version 1.7.1
+Date: 2024.10.22
+
+* Fixed working animations and sounds to better match normal gameplay.
+* Fixed smoke frequency.
+* Fixed some damage over time effects.
+
+* Note: I still have not changed any speeds or durations directly related to new content in the
+space age dlc, that will still take some time.
+
+
+---------------------------------------------------------------------------------------------------
+Version 1.7.0
+Date: 2024.10.21
+
+* Basic updates to make the mod functional with space_age.
+
+
+---------------------------------------------------------------------------------------------------
 Version 1.6.5
 Date: 2022.05.16
 

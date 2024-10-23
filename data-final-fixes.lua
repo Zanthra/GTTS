@@ -35,13 +35,14 @@ end
 --is not working right then to try to put an exception here.
 
 local function adjust_prototypes_recursive(object)
-	local skipall = false
+	--local skipall = false
 	for _,speed in ipairs(prototype_speeds_recursive) do
 		-- Similar to the animations, as a double check to avoid potential
 		-- multiple references, tag each property that is changed so we
 		-- don't change it again.
 		if object[speed] and not object[speed.."+gtts"] then
-			skipall = true
+			
+			--skipall = true
 			object[speed.."+gtts"] = true
 
 			-- A few speeds are a tables of values. In that case just adjust
@@ -82,37 +83,13 @@ local function adjust_prototypes_recursive(object)
 		end
 	end
 
-	if type(object) == "table" then
-		if gtts_fluid_speed then
-			local fbscale = gtts_time_scale
-			if object["pipe_connections"] then
-				if not object["fluidbox+gtts"] then
-					object["fluidbox+gtts"] = true
-					if object["base_area"] then
-						object["base_area"] = object["base_area"] / fbscale
-					else
-						object["base_area"] = 1 / fbscale
-					end
-					if object["height"] then
-						object["height"] = object["height"] * fbscale
-					else
-						object["height"] = 1 * fbscale
-					end
-					if object["base_level"] then
-						object["base_level"] = object["base_level"] * fbscale
-					end
-				end
-			end
-		end
-	end
-
 	-- Now recursively work through each sub object of this object, and
 	-- adjust animations as nescessary, or just pass it on to this function.
 	--
 	-- Many animations are grouped into layers and the like, the majority
 	-- of the purpose of this recursion is to traverse all layers to reach
 	-- all of the pieces of the animations.
-	if not skipall then
+	--if not skipall then
 		for sub_name, sub_object in pairs(object) do
 			-- Don't recursively adjust these objects or anything below them.
 			local skip = false
@@ -131,6 +108,53 @@ local function adjust_prototypes_recursive(object)
 							adjust_animation(sub_object)
 						end
 					else
+						--Handle smoke frequency.
+						if sub_name == "smoke" then
+							for k,_ in ipairs(sub_object) do
+								if sub_object[k]["frequency"] then
+									sub_object[k]["frequency"] = sub_object[k]["frequency"] * gtts_time_scale
+								end
+							end
+						end
+						if sub_name == "perceived_performance" then
+							if sub_object["performance_to_activity_rate"] then
+								sub_object["performance_to_activity_rate"] = sub_object["performance_to_activity_rate"] / gtts_time_scale
+							end
+						end
+						if sub_name == "activity_to_speed_modifiers" then
+							if sub_object["multiplier"] then
+								sub_object["multiplier"] = sub_object["multiplier"] / gtts_time_scale
+							end
+						end
+						if sub_name == "activity_to_volume_modifiers" then
+							if sub_object["multiplier"] then
+								sub_object["multiplier"] = sub_object["multiplier"] / gtts_time_scale
+							end
+						end
+						if sub_name == "damage_per_tick" then
+							if sub_object["amount"] then
+								--local initial = sub_object["amount"]
+								sub_object["amount"] = sub_object["amount"] * gtts_time_scale
+								
+								--log("Object: "..sub_name.." damage adjusted from: "..initial)
+							end
+						end
+						if sub_name == "on_damage_tick_effect" then
+							if sub_object["action_delivery"] then
+								if sub_object["action_delivery"]["target_effects"] then
+									for k,v in ipairs(sub_object["action_delivery"]["target_effects"]) do
+										if v["damage"] then
+											if v["damage"]["amount"] then
+												--local initial = v["damage"]["amount"]
+												v["damage"]["amount"] = v["damage"]["amount"] * gtts_time_scale
+												--log("Object: "..sub_name.." damage adjusted from: "..initial)
+											end
+										end
+									end
+								end
+							end
+						end
+
 						-- Entities with crafting speeds have their own animation
 						-- speed control tied to the crafting speed. Since the
 						-- crafting speed has already been adjusted, changing the
@@ -141,7 +165,8 @@ local function adjust_prototypes_recursive(object)
 							if sub_name == "working_visualisations"
 								or sub_name == "working_visualisations_disabled"
 								or sub_name == "animation"
-								or sub_name == "idle_animation" then
+								or sub_name == "idle_animation"
+								or sub_name == "graphics_set" then
 								working_animation = true
 							end
 						end
@@ -149,7 +174,8 @@ local function adjust_prototypes_recursive(object)
 						if object["type"] == "mining_drill" then
 							if sub_name == "animations"
 								or sub_name == "shadow_animations"
-								or sub_name == "input_fluid_patch_shadow_animations" then
+								or sub_name == "input_fluid_patch_shadow_animations"
+								or sub_name == "graphics_set" then
 								working_animation = true
 							end
 						end
@@ -163,7 +189,7 @@ local function adjust_prototypes_recursive(object)
 				end
 			end
 		end
-	end
+	--end
 end
 
 local function adjust_controller(prototype_type)

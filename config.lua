@@ -175,8 +175,8 @@ prototype_durations = {
 
 	"particle_fade_out_duration",
 	
-	"particle_spawn_interval",
-	"particle_spawn_timeout",
+	--"particle_spawn_interval",
+	--"particle_spawn_timeout",
 	
 	
 	"secondary_picture_fade_out_start",
@@ -247,6 +247,8 @@ prototype_speeds_recursive = {
 	"emissions_per_minute",
 	"emissions_per_second",
 	"absorptions_per_second",
+
+
 	
 	--"absorptions_to_join_attack",
 	--"pollution",
@@ -259,6 +261,10 @@ prototype_durations_recursive = {
 	
 	"fade_in_ticks",
 	"fade_out_ticks",
+	
+	"particle_spawn_interval",
+	"particle_spawn_timeout",
+
 }
 
 prototype_values_clamp_high = {
