@@ -12,14 +12,12 @@ data:extend(
     setting_type = "startup",
     default_value = true,
   },
-
   {
     type = "int-setting",
     name = "gtts-Target-FrameRate",
     setting_type = "startup",
     default_value = 60,
   },
-
   {
     type = "bool-setting",
     name = "gtts-Adjust-DayNight",
@@ -30,13 +28,6 @@ data:extend(
     type = "bool-setting",
     name = "gtts-Adjust-WindSpeed",
     setting_type = "runtime-global",
-    default_value = false,
-  },
-
-  {
-    type = "bool-setting",
-    name = "gtts-fluid-speed",
-    setting_type = "startup",
     default_value = false,
   },
   {

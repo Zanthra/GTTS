@@ -6,6 +6,7 @@ Date: 2024.10.22
 * Fixed working animations and sounds to better match normal gameplay.
 * Fixed smoke frequency.
 * Fixed some damage over time effects.
+* Removed fluid bod adjustments.
 
 * Note: I still have not changed any speeds or durations directly related to new content in the
 space age dlc, that will still take some time.
