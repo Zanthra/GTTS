@@ -1,7 +1,7 @@
 
 
 ---------------------------------------------------------------------------------------------------
-Version 1.7.1
+Version 1.7.2
 Date: 2024.10.22
 
 * Weight modification only applies to non item prototypes to prevent the mod from changing the number that can be carried in a rocket.
