@@ -36,6 +36,7 @@ end
 
 local function adjust_prototypes_recursive(object)
 	--local skipall = false
+
 	for _,speed in ipairs(prototype_speeds_recursive) do
 		-- Similar to the animations, as a double check to avoid potential
 		-- multiple references, tag each property that is changed so we
@@ -230,6 +231,13 @@ local function adjust_speeds()
 			for prototype_name, prototype in pairs(prototype_type) do
 				--Check if this is an animation at prototype level.
 				local animation = false
+
+				-- Handle weight for non item prototypes only.
+				if not type_name == "item" then
+					if prototype["weight"] then
+						prototype["weight"] = prototype["weight"] / gtts_time_scale
+					end
+				end
 				if prototype["frame_count"] then
 					if prototype["frame_count"] > 1 then
 						animation = true
@@ -275,29 +283,17 @@ local function adjust_speeds()
 					-- Do recursive adjustments.
 					adjust_prototypes_recursive(prototype)
 					
-					-- Currently in 0.17 the fluid mechanics have not changed, except
-					-- to remove the pressure_to_speed_ratio that this mod was using
-					-- to make adjustment to fluid flow speeds.
-					--
-					-- Allow the fluid speed adjustment to be disabled as it may be
-					-- terribly inaccurate to simply change the pressure to speed
-					-- ratio like this.
-					--if gtts_fluid_speed then
-					--	if prototype["pressure_to_speed_ratio"] then
-					--		prototype["pressure_to_speed_ratio"] = prototype["pressure_to_speed_ratio"] * gtts_time_scale
-					--	end
-					--end
-					
-					-- This is a block of test code for printing the internal values
-					-- of fluids on load to watch for changes or a return of
-					-- pressure_to_speed_ratio 
-					--
-					--if type_name == "fluid" then
-					--	for k,v in pairs(prototype) do
-					--		log(tostring(k).."="..tostring(v))
-					--	end
-					--end
-					
+					-- Construction robots cannot move if their speed is below about 0.00477, make sure
+					-- that with out of energy multiplier it cannot drop that far.
+					if type_name == "construction-robot" or type_name == "logistic-robot" then
+						if prototype["speed"] and prototype["speed_multiplier_when_out_of_energy"] then
+							if prototype["speed"] * prototype["speed_multiplier_when_out_of_energy"] < 0.005 then
+								log("Object: "..prototype_name.." Robot speed: "..prototype["speed"].." OOE multiplier: "..prototype["speed_multiplier_when_out_of_energy"].." Potential minimum speed: "..(prototype["speed"] * prototype["speed_multiplier_when_out_of_energy"]).." less than 0.005, boosting multiplier to: "..(0.005 / prototype["speed"]))
+								prototype["speed_multiplier_when_out_of_energy"] = 0.005 / prototype["speed"]
+							end
+						end
+					end
+
 					-- While splitters have a speed coefficient, it is not actually tied
 					-- to their belt speed, so it's not really a coefficient. Adjusting
 					-- it as a speed and duration works fine.

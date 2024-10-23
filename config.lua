@@ -118,7 +118,10 @@ prototype_durations = {
 	-- those speeds would be very large as the energy goes up 4x for each 2x increase in speed. Droping the weight
 	-- keeps the ratio inline, and allows the simulation of vehicles to be fairly similar given the change in sampling
 	-- rate.
-	"weight",
+	--
+	-- 2.0 added weight property to all items to determine how many can fit on a rocket, so this has to be handled
+	-- differntly for differnt prototypoe types.
+	--"weight",
 	
 	-- Another timing method for animations.
 	"animation_ticks_per_frame",
@@ -147,6 +150,7 @@ prototype_durations = {
 	"time_to_live",
 	"opened_duration",
 	"particle_alpha_blend_duration",
+	"spoil_ticks",
 	
 	-- Cooldowns
 
@@ -187,8 +191,8 @@ prototype_durations = {
 	--------------------------------------
 	-- Removed due to incompatabilities --
 	--------------------------------------
-	"flow_length_in_ticks", --Causes crashes in some situations at low target frame rates
-	"request_to_open_door_timeout", --Causes robots to get stuck at low target frame rates
+	--"flow_length_in_ticks", --Causes crashes in some situations at low target frame rates
+	--"request_to_open_door_timeout", --Causes robots to get stuck at low target frame rates
 }
 
 prototype_power_rates = {
