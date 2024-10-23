@@ -1,4 +1,4 @@
-GTTS 1.6.3 2021-02-16
+GTTS 1.7.3 2024-10-23
 =====================
 
 Note: The mod currently is not fully updated for space age, and many speeds or durations related to the expansion are not yet modified.
