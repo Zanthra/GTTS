@@ -1,6 +1,16 @@
 
 
 ---------------------------------------------------------------------------------------------------
+Version 1.7.4
+Date: 2024.10.27
+
+* Lots of useful speeds changed. Especially the gravity pull value for planets and some values related to friction in space.
+* Several enemy speeds added, including Spider Units (Pentapods) and Demolisher.
+* Possibly fixed some issues with healing and damage over time effects.
+
+* Gameplay should now largely be the same throughout the expansion. There may still be a few missing variables here or there, but the changes for the expansion are in a very playable state.
+
+---------------------------------------------------------------------------------------------------
 Version 1.7.3
 Date: 2024.10.23
 

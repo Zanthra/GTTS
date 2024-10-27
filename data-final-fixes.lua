@@ -39,20 +39,20 @@ local function adjust_prototypes_recursive(object, prototype_name)
 			-- A few speeds are a tables of values. In that case just adjust
 			-- all of them.
 			if type(object[speed]) == "table" then
-				log("Table speed: "..prototype_name.." Key: "..speed)
+				--log("Table speed: "..prototype_name.." Key: "..speed)
 				for index,_ in ipairs(object[speed]) do
-					log(" Value: "..object[speed][index])
+					--log(" Value: "..object[speed][index])
 					object[speed][index] = object[speed][index] * gtts_time_scale
 				end
 			else
 				if type(object[speed]) == "number" then
-					log("Object speed: "..prototype_name.." Key: "..speed.." Value: "..object[speed])
+					-- log("Object speed: "..prototype_name.." Key: "..speed.." Value: "..object[speed])
 					object[speed] = object[speed] * gtts_time_scale
 
 					-- An exception to the doubling is acceleration as
 					-- it is doubly affected by time, so just run the
 					-- adjustment again.
-					if speed == "acceleration" or speed == "particle_vertical_acceleration" then
+					if speed == "acceleration" or speed == "particle_vertical_acceleration" or speed == "acceleration_rate" or speed == "movement_acceleration" then
 						object[speed] = object[speed] * gtts_time_scale
 					end
 				end
@@ -66,12 +66,22 @@ local function adjust_prototypes_recursive(object, prototype_name)
 		if object[duration] and not object[duration.."+gtts"] then
 			object[duration.."+gtts"] = true
 
-			object[duration] = object[duration] / gtts_time_scale
-
-			if prototype_values_clamp_low[duration] then
-				if object[duration] < prototype_values_clamp_low[duration] then
-					log("Object: "..prototype_name.." Key: "..duration.." Value: "..object[duration].." too low clamped to: "..prototype_values_clamp_low[duration])
-					object[duration] = prototype_values_clamp_low[duration]
+			if type(object[duration]) == "table" then
+				--log("Table duration: "..prototype_name.." Key: "..duration)
+				for index,_ in ipairs(object[duration]) do
+					--log(" Value: "..object[duration][index])
+					object[duration][index] = object[duration][index] / gtts_time_scale
+				end
+			else
+				if type(object[duration]) == "number" then
+					object[duration] = object[duration] / gtts_time_scale
+					
+					if prototype_values_clamp_low[duration] then
+						if object[duration] < prototype_values_clamp_low[duration] then
+							log("Object: "..prototype_name.." Key: "..duration.." Value: "..object[duration].." too low clamped to: "..prototype_values_clamp_low[duration])
+							object[duration] = prototype_values_clamp_low[duration]
+						end
+					end
 				end
 			end
 		end
@@ -322,6 +332,34 @@ local function adjust_speeds()
 						prototype["durability"] = prototype["durability"] / gtts_time_scale
 					end
 
+					--if type_name == "thruster" and prototype["min_performance"] then
+					--	if prototype["min_performance"]["fluid_usage"] then
+					--		prototype["min_performance"]["fluid_usage"] = prototype["min_performance"]["fluid_usage"] * gtts_time_scale
+					--	end
+					--end
+					--if type_name == "thruster" and prototype["max_performance"] then
+					--	if prototype["max_performance"]["fluid_usage"] then
+					--		prototype["max_performance"]["fluid_usage"] = prototype["max_performance"]["fluid_usage"] * gtts_time_scale
+					--	end
+					--end
+
+					--if type_name == "planet" then
+					--	if prototype["surface_properties"] then
+					--		if prototype["surface_properties"]["gravity"] then
+					--			prototype["surface_properties"]["gravity"] = prototype["surface_properties"]["gravity"] * gtts_time_scale
+					--		end
+					--	end
+					--end
+
+
+					-- Fix the doubled impact of vehicle weight changes of platform acceleration.
+					if type_name == "utility-constants" then
+						if prototype["space_platform_acceleration_expression"] then
+							prototype["space_platform_acceleration_expression"] = prototype["space_platform_acceleration_expression"].." * "..gtts_time_scale
+						end
+					end
+
+
 					-- Some adjustments specific to attack_parameters.
 					if prototype["attack_parameters"] then
 						if prototype["attack_parameters"]["cooldown"] then
@@ -375,7 +413,7 @@ local function adjust_speeds()
 						end
 					end
 
-					-- Damage per tick is a type with the ammount as a sub variable.
+					-- Damage per tick is sometimes a type with the ammount as a sub variable.
 					if prototype["damage_per_tick"] and prototype["damage_per_tick"]["ammount"] then
 						prototype["damage_per_tick"]["ammount"] = prototype["damage_per_tick"]["ammount"] * gtts_time_scale
 					end

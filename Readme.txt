@@ -1,7 +1,7 @@
-GTTS 1.7.3 2024-10-23
+GTTS 1.7.4 2024-10-27
 =====================
 
-Note: The mod currently is not fully updated for space age, and many speeds or durations related to the expansion are not yet modified.
+The Mod should be updated for Space Age now, although there will be more polishing to do.
 
 This mod changes all available prototype speeds and durations to effectively change the duration of one game tick. This allows players to speed up slow factories by increasing the ammount of time the game has to calculate the tick without haivng to delay the game, or allows the game to be played at higher framerates for players that have high refresh rate monitors.
 

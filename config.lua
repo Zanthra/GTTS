@@ -48,9 +48,7 @@ prototype_speeds = {
 	-------------------
 	-- Player Speeds --
 	-------------------
-	"healing_per_tick", -- Player out of combat healing rate.
 	"distance_per_frame", -- Distance over the ground to travel before moving to the next animation frame.
-	"movement_speed", -- Player and other mob movement speeds.
 	"dying_speed", -- How quickly the aliens croak after they reach 0 HP. Perhaps you too.
 	"running_speed", -- Some mobs use running speed instead of movement speed.
 
@@ -59,12 +57,13 @@ prototype_speeds = {
 	-- Vehicles --
 	--------------
 	"turret_rotation_speed", -- Turret rotation speed for cars, tanks, turrets and artillery.
-	"max_speed", -- A variable affecting the speed at which trains will stop accelerating, even if other factors would allow them to go faster.
 	"braking_force", -- Base braking force for trains.
 	"friction", -- Friction for cars and tanks as a percent of speed each tick.
 	"friction_force",
 	"air-resistance", -- Percent of train speed lost each tick.
 	"torso_rotation_speed", -- Spidertron Torso rotation speed
+	"max_speed", -- A variable affecting the speed at which trains will stop accelerating, even if other factors would allow them to go faster.
+	"torso_bob_speed",
 
 	-------------------
 	-- Combat Speeds --
@@ -109,6 +108,7 @@ prototype_speeds = {
 	"stop_trigger_speed",
 	"sound_scaling_ratio",
 	"sound_minimum_speed",
+	"ground_patch_fade_in_speed",
 
 	----------------------
 	-- Space Age Speeds --
@@ -164,7 +164,10 @@ prototype_durations = {
 	"spoil_ticks",
 	"time_to_damage",
 	"effect_duration",
-	
+	"time_to_capture",
+	"decay_frame_transition_duration",
+	"ground_patch_fade_out_duration",
+
 	-- Cooldowns
 
 	"lifetime_increase_cooldown",
@@ -190,6 +193,8 @@ prototype_durations = {
 	"damage_interval",
 
 	"alert_after_time",
+	"ground_patch_fade_in_delay",
+	"ground_patch_fade_out_start",
 	
 
 	"particle_fade_out_duration",
@@ -253,9 +258,20 @@ prototype_speeds_recursive = {
 
 	"acceleration", -- First adjust for the speed the acceleration grants.
 	"acceleration", -- Then adjust for the rate at which the speed is granted.
+	
+	"acceleration_rate",
+	"acceleration_rate",
+
+	"movement_acceleration",
+	"movement_acceleration",
 
 	"particle_vertical_acceleration",
+	
+	"healing_per_tick", -- Player out of combat healing rate.
+	"damage_per_tick",
 
+	
+	"movement_speed", -- Player and other mob movement speeds.
 
 	"speed", -- Many prototypes have a speed for movement speed, operating speed, etc.
 
@@ -284,7 +300,20 @@ prototype_speeds_recursive = {
 	"walking_sound_count_reduction_rate",
 	"moving_sound_count_reduction_rate",
 
-	
+	"fluid_usage",
+	"gravity_pull",
+	"lightnings_per_chunk_per_tick",
+	"minimal_change_per_tick",
+
+	"patrolling_speed",
+	"investigating_speed",
+	"attacking_speed",
+	"enraged_speed",
+	"wave_speed",
+
+	--"initial_movement_speed",
+	"turn_speed",
+
 	--"absorptions_to_join_attack",
 	--"pollution",
 
@@ -303,6 +332,8 @@ prototype_durations_recursive = {
 	"ease_in_duration",
 	"ease_out_duration",
 	"duration",
+	
+	"spawning_cooldown",
 
 	"platform_to_planet_duration_a",
 	"platform_to_planet_duration_b",
@@ -337,6 +368,16 @@ prototype_durations_recursive = {
 	"music_transition_fade_in_ticks",
 	"environment_sounds_transition_fade_in_ticks",
 	
+	"slow_seconds",
+	"demolisher_cloud_duration",
+	"demolisher_expanding_cloud_interval",
+	"fissure_explosion_delay_ticks",
+	"fissure_explosion_particles_delay_ticks",
+	"fissure_explosion_damage_delay_ticks",
+	"fissure_eruption_ticks",
+	"enraged_duration",
+
+	--"distance_cooldown",
 }
 
 prototype_values_clamp_high = {
