@@ -362,9 +362,6 @@ local function adjust_speeds()
 
 					-- Some adjustments specific to attack_parameters.
 					if prototype["attack_parameters"] then
-						if prototype["attack_parameters"]["cooldown"] then
-							prototype["attack_parameters"]["cooldown"] = prototype["attack_parameters"]["cooldown"] / gtts_time_scale
-						end
 						if prototype["attack_parameters"]["warmup"] then
 							prototype["attack_parameters"]["warmup"] = prototype["attack_parameters"]["warmup"] / gtts_time_scale
 						end
@@ -416,13 +413,6 @@ local function adjust_speeds()
 					-- Damage per tick is sometimes a type with the ammount as a sub variable.
 					if prototype["damage_per_tick"] and prototype["damage_per_tick"]["ammount"] then
 						prototype["damage_per_tick"]["ammount"] = prototype["damage_per_tick"]["ammount"] * gtts_time_scale
-					end
-					
-					-- Poison Capsule.
-					if prototype["capsule_action"] then
-						if prototype["capsule_action"]["cooldown"] then
-							prototype["capsule_action"]["cooldown"] = prototype["capsule_action"]["cooldown"] / gtts_time_scale
-						end
 					end
 				end
 			end

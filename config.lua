@@ -42,7 +42,6 @@ prototype_speeds = {
 	"emissions_per_tick", -- Pollution Production.
 	"fluid_usage_per_tick", -- Steam engine and turbine steam usage speed.
 	"rotation_speed", -- Turing rate for cars and tanks, as well as turning speed for inserters and radars.
-	"extension_speed", -- Speed at which inserters extend or contract their hand to pick up items on the other side of belts, or to reach closer or further belts in mods that support it.
 	"researching_speed", -- Lab Research speed.
 
 	-------------------
@@ -152,7 +151,6 @@ prototype_durations = {
 	"fade_away_duration",
 	"smoke_fade_in_duration",
 	"smoke_fade_out_duration",
-	"spread_duration",
 	"ticks_to_keep_aiming_direction",
 	"ticks_to_keep_gun",
 	"ticks_to_stay_in_combat",
@@ -316,6 +314,10 @@ prototype_speeds_recursive = {
 
 	--"absorptions_to_join_attack",
 	--"pollution",
+	"vertical_turn_rate",
+	"horizontal_turn_rate",
+	"extension_speed", -- Speed at which inserters extend or contract their hand to pick up items on the other side of belts, or to reach closer or further belts in mods that support it. Also Agricultural Towers.
+	"turn_rate",
 
 	
 	--"frequency",
@@ -368,10 +370,16 @@ prototype_durations_recursive = {
 	"music_transition_fade_in_ticks",
 	"environment_sounds_transition_fade_in_ticks",
 	
+	"cooldown",
+	"delay",
+	"time_before_shading_off",
+	"spread_duration",
+	"repeat_delay",
+
 	"slow_seconds",
 	"demolisher_cloud_duration",
 	"demolisher_expanding_cloud_interval",
-	"fissure_explosion_delay_ticks",
+	--"fissure_explosion_delay_ticks",
 	"fissure_explosion_particles_delay_ticks",
 	"fissure_explosion_damage_delay_ticks",
 	"fissure_eruption_ticks",

@@ -3,7 +3,7 @@ GTTS 1.7.4 2024-10-27
 
 The Mod should be updated for Space Age now, although there will be more polishing to do.
 
-This mod changes all available prototype speeds and durations to effectively change the duration of one game tick. This allows players to speed up slow factories by increasing the ammount of time the game has to calculate the tick without haivng to delay the game, or allows the game to be played at higher framerates for players that have high refresh rate monitors.
+This mod changes all available prototype speeds and durations to effectively change the duration of one game tick. This allows players to speed up slow factories by increasing the amount of time the game has to calculate the tick without having to delay the game, or allows the game to be played at higher framerates for players that have high refresh rate monitors.
 
 Due to item locations on belts being quantized to 1/256 of a tile, accurate item movement on belts requires a UPS value of 480/x. Suggested UPS for belt accuracy are:
 
