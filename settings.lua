@@ -17,6 +17,8 @@ data:extend(
     name = "gtts-Target-FrameRate",
     setting_type = "startup",
     default_value = 60,
+    minimum_value = 6,
+    maximum_value = 480
   },
   {
     type = "bool-setting",
