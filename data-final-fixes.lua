@@ -61,7 +61,6 @@ local function adjust_prototypes_recursive(object, type_name)
 			-- A few speeds are a tables of values. In that case just adjust
 			-- all of them.
 			if type(object[speed]) == "table" then
-				--log("Table speed: "..prototype_name.." Key: "..speed)
 				--log("Table speed: "..type_name.." Key: "..speed)
 				for index,_ in ipairs(object[speed]) do
 					--log(" Value: "..object[speed][index])
@@ -69,7 +68,7 @@ local function adjust_prototypes_recursive(object, type_name)
 				end
 			else
 				if type(object[speed]) == "number" then
-					-- log("Object speed: "..prototype_name.." Key: "..speed.." Value: "..object[speed])
+					-- log("Object speed: "..type_name.." Key: "..speed.." Value: "..object[speed])
 					object[speed] = object[speed] * gtts_time_scale
 
 					-- An exception to the doubling is acceleration as
@@ -90,8 +89,7 @@ local function adjust_prototypes_recursive(object, type_name)
 			object[duration.."+gtts"] = true
 
 			if type(object[duration]) == "table" then
-				--log("Table duration: "..prototype_name.." Key: "..duration)
-				log("Table duration: "..type_name.." Key: "..duration)
+				--log("Table duration: "..type_name.." Key: "..duration)
 				for index,_ in ipairs(object[duration]) do
 					--log(" Value: "..object[duration][index])
 					object[duration][index] = object[duration][index] / gtts_time_scale
