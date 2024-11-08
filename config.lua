@@ -412,6 +412,7 @@ prototype_values_clamp_high = {
 	["projectile.ease_out_duration"] = uint8.max,
 	duration_in_ticks = uint32.max,
 	life_time = uint16.max,
+	spoil_ticks = uint32.max,
 	["attack_parameters.ammo_type.action.action_delivery.duration"] = uint8.max
 }
 
