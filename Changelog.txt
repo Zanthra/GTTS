@@ -1,261 +1,207 @@
-
 ---------------------------------------------------------------------------------------------------
-Version 1.7.5
+Version: 1.7.6
+Date: ???
+  Changes:
+    - Fixed crash with large spoil_time
+    - No longer incorrectly caps explosion fade_out_duration to 255
+    - Display internal target-framerate limit of 6-480 (inclusive) in settings
+    - Internal changes to make type-based value limits more straightforward
+---------------------------------------------------------------------------------------------------
+Version: 1.7.5
 Date: 2024.10.29
-
-* Fixed demolisher attack speeds not being updated properly.
-
+  Changes:
+    - Fixed demolisher attack speeds not being updated properly.
 ---------------------------------------------------------------------------------------------------
-Version 1.7.4
+Version: 1.7.4
 Date: 2024.10.27
-
-* Lots of useful speeds changed. Especially the gravity pull value for planets and some values related to friction in space.
-* Several enemy speeds added, including Spider Units (Pentapods) and Demolisher.
-* Possibly fixed some issues with healing and damage over time effects.
-
-* Gameplay should now largely be the same throughout the expansion. There may still be a few missing variables here or there, but the changes for the expansion are in a very playable state.
-
+  Changes:
+    - Lots of useful speeds changed. Especially the gravity pull value for planets and some values related to friction in space.
+    - Several enemy speeds added, including Spider Units (Pentapods) and Demolisher.
+    - Possibly fixed some issues with healing and damage over time effects.
+    - Gameplay should now largely be the same throughout the expansion. There may still be a few missing variables here or there, but the changes for the expansion are in a very playable state.
 ---------------------------------------------------------------------------------------------------
-Version 1.7.3
+Version: 1.7.3
 Date: 2024.10.23
-
-* A bunch of added speeds related to animations and rockets.
-
+  Changes:
+    - A bunch of added speeds related to animations and rockets.
 ---------------------------------------------------------------------------------------------------
-Version 1.7.2
+Version: 1.7.2
 Date: 2024.10.22
-
-* Weight modification only applies to non item prototypes to prevent the mod from changing the number that can be carried in a rocket.
-* Boost robot out of energy speed multiplier if it is too low to prevent unmoving robots.
-* Update readme and changelog to no longer include line breaks within paragraphs.
-
+  Changes:
+    - Weight modification only applies to non item prototypes to prevent the mod from changing the number that can be carried in a rocket.
+    - Boost robot out of energy speed multiplier if it is too low to prevent unmoving robots.
+    - Update readme and changelog to no longer include line breaks within paragraphs.
 ---------------------------------------------------------------------------------------------------
-Version 1.7.1
+Version: 1.7.1
 Date: 2024.10.22
-
-* Fixed working animations and sounds to better match normal gameplay.
-* Fixed smoke frequency.
-* Fixed some damage over time effects.
-* Removed fluid bod adjustments.
-
-* Note: I still have not changed any speeds or durations directly related to new content in the space age dlc, that will still take some time.
-
-
+  Changes:
+    - Fixed working animations and sounds to better match normal gameplay.
+    - Fixed smoke frequency.
+    - Fixed some damage over time effects.
+    - Removed fluid bod adjustments.
+    - Note: I still have not changed any speeds or durations directly related to new content in the space age dlc, that will still take some time.
 ---------------------------------------------------------------------------------------------------
-Version 1.7.0
+Version: 1.7.0
 Date: 2024.10.21
-
-* Basic updates to make the mod functional with space_age.
-
-
+  Changes:
+    - Basic updates to make the mod functional with space_age.
 ---------------------------------------------------------------------------------------------------
-Version 1.6.5
+Version: 1.6.5
 Date: 2022.05.16
-
-* Fixed a bug preventing the new controller modifications from
-being applied.
-
+  Changes:
+    - Fixed a bug preventing the new controller modifications from being applied.
 ---------------------------------------------------------------------------------------------------
-Version 1.6.4
+Version: 1.6.4
 Date: 2022.05.15
-
-* Added clamp high values for duration and life_time to help compatability with other mods.
-* Added special adjustment code for the god-controller and other controllers to allow their movement_speed to be ajusted within some bounds.
-
+  Changes:
+    - Added clamp high values for duration and life_time to help compatability with other mods.
+    - Added special adjustment code for the god-controller and other controllers to allow their movement_speed to be ajusted within some bounds.
 ---------------------------------------------------------------------------------------------------
 Version: 1.6.3
 Date: 2021.02.16
-
-Added a fluid flow adjustment for low UPS based on the height and base_area of prototype fluid boxes. Thanks to psznm on the mod discussion forum for the idea. Caution is advised due to potential for significant fluid oscillation, and it is not recommended for using at high UPS as at high UPS it will slow fluid flow dramatically.
-
+  Changes:
+    - Added a fluid flow adjustment for low UPS based on the height and base_area of prototype fluid boxes. Thanks to psznm on the mod discussion forum for the idea. Caution is advised due to potential for significant fluid oscillation, and it is not recommended for using at high UPS as at high UPS it will slow fluid flow dramatically.
 ---------------------------------------------------------------------------------------------------
 Version: 1.6.2
 Date: 2020.12.25
-
-Added clamping for values that need a minimum and added a minimum value for duration to 1 for compatibility with some mods.
-
+  Changes:
+    - Added clamping for values that need a minimum and added a minimum value for duration to 1 for compatibility with some mods.
 ---------------------------------------------------------------------------------------------------
 Version: 1.6.1
 Date: 2020.12.01
-
-Update mod compatibility version to 1.1.
-
-
+  Changes:
+    - Update mod compatibility Version: to 1.1.
 ---------------------------------------------------------------------------------------------------
 Version: 1.6.0
 Date: 2020.11.10
-
-Added movement speeds and power rates for spidertron, while the leg speeds have been adjusted, unfortunately it seems that the torso's speed is not something that can be changed with prototypes, but it's better at least than with no adjustment. 
-
-Added a clamping for modded and unmodded values that may exceed certain limits in the game. For example beams used by picker pipe tools had a damage interval so high that any increase due to GTTS would cause it to fail to load. Please let me know of any other such values that need to be added to exceptions on the mod discussion forums.
-
-Updated mod compatibility version to 1.0.
-
+  Changes:
+    - Added movement speeds and power rates for spidertron, while the leg speeds have been adjusted, unfortunately it seems that the torso's speed is not something that can be changed with prototypes, but it's better at least than with no adjustment. 
+    - Added a clamping for modded and unmodded values that may exceed certain limits in the game. For example beams used by picker pipe tools had a damage interval so high that any increase due to GTTS would cause it to fail to load. Please let me know of any other such values that need to be added to exceptions on the mod discussion forums.
+    - Updated mod compatibility Version: to 1.0.
 ---------------------------------------------------------------------------------------------------
 Version: 1.5.1
 Date: 2020.04.15
-
-Added pollution_absorption_per_second for 0.18, along with other miscelaneous adjustments.
-
-Added a fix for adjusting animation speeds for animations that are stored in the data at the prototype level, particularly for compatibility with DiscoScience.
-
+  Changes:
+    - Added pollution_absorption_per_second for 0.18, along with other miscelaneous adjustments.
+    - Added a fix for adjusting animation speeds for animations that are stored in the data at the prototype level, particularly for compatibility with DiscoScience.
 ---------------------------------------------------------------------------------------------------
 Version: 1.5.0
 Date: 2020.03.04
-
-This just updates the compatible version for GTTS to 0.18, no new speeds or durations have been added.
-
+  Changes:
+    - This just updates the compatible Version: for GTTS to 0.18, no new speeds or durations have been added.
 ---------------------------------------------------------------------------------------------------
 Version: 1.4.2
 Date: 2020.03.04
-
-Changed the method of modifying and saving game saved properties such as day length.
-
-Also fixed spelling of Absorption which will fix the ammount of pollution added or removed per tick.
-
+  Changes:
+    - Changed the method of modifying and saving game saved properties such as day length.
+    - Also fixed spelling of Absorption which will fix the ammount of pollution added or removed per tick.
 ---------------------------------------------------------------------------------------------------
 Version: 1.4.1
 Date: 2019.02.28
-
-Added new speeds and durations for new spitter projectiles and beams. Also added adjustment for splitter animation speed.
-
+  Changes:
+    - Added new speeds and durations for new spitter projectiles and beams. Also added adjustment for splitter animation speed.
 ---------------------------------------------------------------------------------------------------
 Version: 1.4.0
 Date: 2019..02.26
-
-Minor Changes to make compatable with Factorio 0.17. No new changes added. Minor debugging.
-
+  Changes:
+    - Minor Changes to make compatable with Factorio 0.17. No new changes added. Minor debugging.
 ---------------------------------------------------------------------------------------------------
 Version: 1.3.5
 Date: 2018.07.10
-
-From a suggestion I saw here on the Forums:
-https://forums.factorio.com/viewtopic.php?f=5&t=60842
-
-Thanks to TurePikachu for the idea, it seems that item positions belts have 1/256 tile increments, so there are only specific UPS values that will maintain belt speed accuracy.
-
-The following list shows some of the valid UPS values between 480 and 12, with any value of 480/x maintaining belt accuracy.
-
-480, 240, 160, 120, 96, 80, 60, 48, 40, 32, 30, 24, 20, 19.2, 16, 15 and 12
-
-The mod settings now also have tooltips to provide a bit more infomration on the settings.
-
+  Changes:
+    - From a suggestion I saw here on the Forums:
+      https://forums.factorio.com/viewtopic.php?f=5&t=60842
+      Thanks to TurePikachu for the idea, it seems that item positions belts have 1/256 tile increments, so there are only specific UPS values that will maintain belt speed accuracy.
+      The following list shows some of the valid UPS values between 480 and 12, with any value of 480/x maintaining belt accuracy.
+      480, 240, 160, 120, 96, 80, 60, 48, 40, 32, 30, 24, 20, 19.2, 16, 15 and 12
+      The mod settings now also have tooltips to provide a bit more infomration on the settings.
 ---------------------------------------------------------------------------------------------------
 Version: 1.3.4
 Date: 2018.06.10
-
-After a brief discussion with Klonan on the Factorio discord, I learned that there is indeed an easy way to manage day/night length. I implemented a runtime setting to adjust this for the main surface (Nauvis), which brings solar power and accumulator rations in line with vanilla without use of another mod.
-
+  Changes:
+    - After a brief discussion with Klonan on the Factorio discord, I learned that there is indeed an easy way to manage day/night length. I implemented a runtime setting to adjust this for the main surface (Nauvis), which brings solar power and accumulator rations in line with vanilla without use of another mod.
 ---------------------------------------------------------------------------------------------------
 Version: 1.3.3
 Date: 2018.06.10
-
-This version removes the welcome window due to various potential issues I don't feel confident in my ability to track down and fix.
-
-It also adds a Safe Mode checkbox that disables all runtime events meaning that the player must adjust the game speed and hand crafting rates manually. It also disables all runtime mod settings changes. This can substantially improve the mdos compatibility in multiplayer or in concjunction with other mods.
-
+  Changes:
+    - This Version: removes the welcome window due to various potential issues I don't feel confident in my ability to track down and fix.
+    - It also adds a Safe Mode checkbox that disables all runtime events meaning that the player must adjust the game speed and hand crafting rates manually. It also disables all runtime mod settings changes. This can substantially improve the mdos compatibility in multiplayer or in concjunction with other mods.
 ---------------------------------------------------------------------------------------------------
 Version: 1.3.2
 Date: 2018.01.31
-
-Changed the welcome popup to not appear on tick 1 of the game so as not to interfere with the game tips that prevents interaction with the UI.
-
+  Changes:
+    - Changed the welcome popup to not appear on tick 1 of the game so as not to interfere with the game tips that prevents interaction with the UI.
 ---------------------------------------------------------------------------------------------------
 Version: 1.3.1
 Date: 2018.01.31
-
-Fixed the check for the setting used to disasble the welcome message so that it actually disables the welcome message.
-
-Added an option to close the notification permanenetly for a save game on the dialog itself so players can supress the welcome message if it appears too frequently.
-
-Also nil the UI event handler to clean up resources.
-
+  Changes:
+    - Fixed the check for the setting used to disasble the welcome message so that it actually disables the welcome message.
+    - Added an option to close the notification permanenetly for a save game on the dialog itself so players can supress the welcome message if it appears too frequently.
+    - Also nil the UI event handler to clean up resources.
 ---------------------------------------------------------------------------------------------------
 Version: 1.3.0
 Date: 2018.01.31
-
-Fixed character movement animation, and player mining speed, along with addition and reorganization of many of the adjusted. speeds, and the addition of a couple of durations specific to the new artillery cannon and artillery wagon.
-
-This release introduces a welcome message to help people set up the mod, and changes the default to a neutral 60 FPS. The notification can be disabled in the mod options.
-
+  Changes:
+    - Fixed character movement animation, and player mining speed, along with addition and reorganization of many of the adjusted. speeds, and the addition of a couple of durations specific to the new artillery cannon and artillery wagon.
+    - This release introduces a welcome message to help people set up the mod, and changes the default to a neutral 60 FPS. The notification can be disabled in the mod options.
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.0
 Date: 2017.07.25
-
-Added per map options for adjusting values for pollution enemy expansions, evolution, and hand crafting rates.
-
-Changed train properties to more accurately adjust their acceleration and collision damage.
-
+  Changes:
+    - Added per map options for adjusting values for pollution enemy expansions, evolution, and hand crafting rates.
+    - Changed train properties to more accurately adjust their acceleration and collision damage.
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.2
 Date: 2017.07.25
-
-Added the following properties to be adjusted as power rates used by roboports, solar panels, combinators, and the rocket silo.
-
-charging_energy
-production
-idle_energy_usage
-lamp_energy_usage
-active_energy_usage
-
+  Changes:
+    - Added the following properties to be adjusted as power rates used by roboports, solar panels, combinators, and the rocket silo.
+      charging_energy
+      production
+      idle_energy_usage
+      lamp_energy_usage
+      active_energy_usage
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.1
 Date: 2017.07.24
-
-Made adjustments to the "heat_buffer" "max_trasfer" property of nuclear reactors and heat pipes.
-
+  Changes:
+    - Made adjustments to the "heat_buffer" "max_trasfer" property of nuclear reactors and heat pipes.
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.0
 Date: 2017.07.17
-
-Fixed the events related to changing the game speed so that it properly updates the game speed when and only when the mod settings have changed or the mod or game is updated.
-
-No longer adjusts the values of
-
-request_to_open_door_timeout
-flow_length_in_ticks
-
-Due to problems at low target frame rates and the minor ingame impact of these values.
-
+  Changes:
+    - Fixed the events related to changing the game speed so that it properly updates the game speed when and only when the mod settings have changed or the mod or game is updated.
+    - No longer adjusts the values of request_to_open_door_timeout, flow_length_in_ticks due to problems at low target frame rates and the minor ingame impact of these values.
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.1
 Date: 2017.07.16
-
-Small changes to readme, and removed nonfunctioning option to immediately reset the game speed of a running game.
-
+  Changes:
+    - Small changes to readme, and removed nonfunctioning option to immediately reset the game speed of a running game.
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.0
 Date: 2017.07.16
-
-This mod now also adjusts the object weights and the energy per hit point of collision damage in order to properly adjust the kinetic energy of vehicles.
-
-The mod also now adjusts mining and repair tool durability which was based on ticks used.
-
+  Changes:
+    - This mod now also adjusts the object weights and the energy per hit point of collision damage in order to properly adjust the kinetic energy of vehicles.
+    - The mod also now adjusts mining and repair tool durability which was based on ticks used.
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.1
 Date: 2017.07.01
-
-Excluded "god-controller" from modified prototypes due to minimum speed issues causing error loading into Factorio version 0.15.26 .
-
+  Changes:
+    - Excluded "god-controller" from modified prototypes due to minimum speed issues causing error loading into Factorio Version: 0.15.26 .
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.0
 Date: 2017.06.28
-
-Added a load of missing modifications to time ratios, in particular changed accumulator Input and Output rates, and fixed vehicle power consumption.
-
-Moved the modifications from data-updates to data-final-fixes as some mods change crafting speeds in their data-updates, such as Angel's modifications to Bob's MK 2 Chemical Plants.
-
-Added a wild guess fluid speed modification. Since the math beind fluid speeds is pretty obscured, and I don't have a good way of testing it, use at your own risk.
-
+  Changes:
+    - Added a load of missing modifications to time ratios, in particular changed accumulator Input and Output rates, and fixed vehicle power consumption.
+    - Moved the modifications from data-updates to data-final-fixes as some mods change crafting speeds in their data-updates, such as Angel's modifications to Bob's MK 2 Chemical Plants.
+    - Added a wild guess fluid speed modification. Since the math beind fluid speeds is pretty obscured, and I don't have a good way of testing it, use at your own risk.
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.1
 Date: 2017.06.27
-
-First release to mod portal as mod is stable, and many of the initial goals are accomplished.
-
+  Changes:
+    - First release to mod portal as mod is stable, and many of the initial goals are accomplished.
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.0
 Date: 2017.06.25
-
-Created mod base and modified a collection of speeds.
+  Changes:
+    - Created mod base and modified a collection of speeds.
 
