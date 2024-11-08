@@ -1,4 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.7.6
+Date: ???
+  Changes:
+    - Fixed crash with large spoil_time
+    - No longer incorrectly caps explosion fade_out_duration to 255
+    - Display internal target-framerate limit of 6-480 (inclusive) in settings
+    - Internal changes to make type-based value limits more straightforward
+---------------------------------------------------------------------------------------------------
 Version: 1.7.5
 Date: 2024.10.29
   Changes:
