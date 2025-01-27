@@ -1,5 +1,27 @@
 require "config"
 
+---Clamps the given prototype property to the range set in config.lua
+---@param type_name string the type name of the prototype being modified
+---@param property_name string the name of the property being clamped
+---@param base_value number the current value of the property
+---@param min_value number? the minimum value to clamp to (inclusive)
+---@param max_value number? the maximum value to clamp to (inclusive)
+---@return number clamped the property value clamped to `min <= x <= max`
+local function clamp_property(type_name, property_name, base_value, min_value, max_value)
+	local full_path = type_name .. "." .. property_name
+	if not min_value then
+		min_value = prototype_values_clamp_low[full_path] or prototype_values_clamp_low[property_name] or math.huge * -1
+	end
+	if not max_value then
+		max_value = prototype_values_clamp_high[full_path] or prototype_values_clamp_high[property_name] or math.huge
+	end
+	local ret = math.min(math.max(base_value, min_value), max_value)
+	if ret ~= base_value then
+		log(string.format("CLAMPED: %s.%s,  %s -> %s", type_name, property_name, base_value, ret))
+	end
+	return ret
+end
+
 local function adjust_energy(value)
 	local start, stop = string.find(value, "[0123456789.]+")
 	--Trim the KW MW KJ MJ etc ending off energy values and append it after adjusting the numbers.
@@ -24,7 +46,7 @@ end
 --as it's better to put a specific change to the value when something
 --is not working right then to try to put an exception here.
 
-local function adjust_prototypes_recursive(object, prototype_name)
+local function adjust_prototypes_recursive(object, type_name)
 	--local skipall = false
 
 	for _,speed in ipairs(prototype_speeds_recursive) do
@@ -39,14 +61,14 @@ local function adjust_prototypes_recursive(object, prototype_name)
 			-- A few speeds are a tables of values. In that case just adjust
 			-- all of them.
 			if type(object[speed]) == "table" then
-				--log("Table speed: "..prototype_name.." Key: "..speed)
+				--log("Table speed: "..type_name.." Key: "..speed)
 				for index,_ in ipairs(object[speed]) do
 					--log(" Value: "..object[speed][index])
 					object[speed][index] = object[speed][index] * gtts_time_scale
 				end
 			else
 				if type(object[speed]) == "number" then
-					-- log("Object speed: "..prototype_name.." Key: "..speed.." Value: "..object[speed])
+					-- log("Object speed: "..type_name.." Key: "..speed.." Value: "..object[speed])
 					object[speed] = object[speed] * gtts_time_scale
 
 					-- An exception to the doubling is acceleration as
@@ -67,21 +89,15 @@ local function adjust_prototypes_recursive(object, prototype_name)
 			object[duration.."+gtts"] = true
 
 			if type(object[duration]) == "table" then
-				--log("Table duration: "..prototype_name.." Key: "..duration)
+				--log("Table duration: "..type_name.." Key: "..duration)
 				for index,_ in ipairs(object[duration]) do
 					--log(" Value: "..object[duration][index])
 					object[duration][index] = object[duration][index] / gtts_time_scale
 				end
 			else
 				if type(object[duration]) == "number" then
-					object[duration] = object[duration] / gtts_time_scale
-					
-					if prototype_values_clamp_low[duration] then
-						if object[duration] < prototype_values_clamp_low[duration] then
-							log("Object: "..prototype_name.." Key: "..duration.." Value: "..object[duration].." too low clamped to: "..prototype_values_clamp_low[duration])
-							object[duration] = prototype_values_clamp_low[duration]
-						end
-					end
+					object[duration] = clamp_property(type_name, duration, object[duration] / gtts_time_scale)
+					--log("duration: "..type_name.." Key: "..duration.." Value: " ..object[duration])
 				end
 			end
 		end
@@ -154,7 +170,7 @@ local function adjust_prototypes_recursive(object, prototype_name)
 								--local initial = sub_object["amount"]
 								sub_object["amount"] = sub_object["amount"] * gtts_time_scale
 								
-								--log("Object: "..sub_name.." damage adjusted from: "..initial)
+								--log("Object: "..sub_name.." damage adjusted from: "..sub_object["amount"])
 							end
 						end
 						if sub_name == "on_damage_tick_effect" then
@@ -165,7 +181,7 @@ local function adjust_prototypes_recursive(object, prototype_name)
 											if v["damage"]["amount"] then
 												--local initial = v["damage"]["amount"]
 												v["damage"]["amount"] = v["damage"]["amount"] * gtts_time_scale
-												--log("Object: "..sub_name.." damage adjusted from: "..initial)
+												--log("Object: "..sub_name.." damage adjusted from: "..v["damage"]["amount"])
 											end
 										end
 									end
@@ -201,7 +217,7 @@ local function adjust_prototypes_recursive(object, prototype_name)
 						-- If it's not a working animation, pass it back to this
 						-- function for further processing.
 						if not working_animation then
-							adjust_prototypes_recursive(sub_object, sub_name)
+							adjust_prototypes_recursive(sub_object, type_name)
 						end
 					end
 				end
@@ -285,34 +301,21 @@ local function adjust_speeds()
 					-- Adjust Durations.
 					for _,duration in ipairs(prototype_durations) do
 						if prototype[duration] then
-							prototype[duration] = prototype[duration] / gtts_time_scale
-							
-							if prototype_values_clamp_high[duration] then
-								if prototype[duration] > prototype_values_clamp_high[duration] then
-									log("Object: "..prototype_name.." Key: "..duration.." Value: "..prototype[duration].." too high clamped to: "..prototype_values_clamp_high[duration])
-									prototype[duration] = prototype_values_clamp_high[duration]
-								end
-							end
-
-							if prototype_values_clamp_low[duration] then
-								if prototype[duration] < prototype_values_clamp_low[duration] then
-									log("Object: "..prototype_name.." Key: "..duration.." Value: "..prototype[duration].." too low clamped to: "..prototype_values_clamp_low[duration])
-									prototype[duration] = prototype_values_clamp_low[duration]
-								end
-							end
+							prototype[duration] = clamp_property(type_name, duration, prototype[duration] / gtts_time_scale)
 						end
 					end
 					
 					-- Do recursive adjustments.
-					adjust_prototypes_recursive(prototype, prototype_name)
+					adjust_prototypes_recursive(prototype, type_name)
 					
 					-- Construction robots cannot move if their x and y velocities both individually drop below
 					-- 2^-8. Thus the safe minimum speed for robots is 2^-8 * sqrt(2) or about 0.0056
 					if type_name == "construction-robot" or type_name == "logistic-robot" then
 						if prototype["speed"] and prototype["speed_multiplier_when_out_of_energy"] then
-							if prototype["speed"] * prototype["speed_multiplier_when_out_of_energy"] < 0.0056 then
-								log("Object: "..prototype_name.." Robot speed: "..prototype["speed"].." OOE multiplier: "..prototype["speed_multiplier_when_out_of_energy"].." Potential minimum speed: "..(prototype["speed"] * prototype["speed_multiplier_when_out_of_energy"]).." less than 0.0056, boosting multiplier to: "..(0.0056 / prototype["speed"]))
-								prototype["speed_multiplier_when_out_of_energy"] = 0.0056 / prototype["speed"]
+							local depleted_speed = prototype["speed"] * prototype["speed_multiplier_when_out_of_energy"]
+							-- a speed of 0 means they will crash when out of energy, and we don't want to override that
+							if depleted_speed > 0 then
+								prototype["speed_multiplier_when_out_of_energy"] = clamp_property(type_name, "speed_multiplier_when_out_of_energy", prototype["speed_multiplier_when_out_of_energy"], 0.0056 / prototype["speed"])
 							end
 						end
 					end
@@ -362,17 +365,18 @@ local function adjust_speeds()
 
 					-- Some adjustments specific to attack_parameters.
 					if prototype["attack_parameters"] then
-						if prototype["attack_parameters"]["warmup"] then
-							prototype["attack_parameters"]["warmup"] = prototype["attack_parameters"]["warmup"] / gtts_time_scale
+						local attack_params = prototype["attack_parameters"]
+						if attack_params["warmup"] then
+							attack_params["warmup"] = attack_params["warmup"] / gtts_time_scale
 						end
-						if      prototype["attack_parameters"]["ammo_type"] 
-							and prototype["attack_parameters"]["ammo_type"]["action"]
-							and prototype["attack_parameters"]["ammo_type"]["action"]["action_delivery"] then
-							if prototype["attack_parameters"]["ammo_type"]["action"]["action_delivery"]["cooldown"] then
-								prototype["attack_parameters"]["ammo_type"]["action"]["action_delivery"]["cooldown"] = prototype["attack_parameters"]["ammo_type"]["action"]["action_delivery"]["cooldown"] / gtts_time_scale
+						-- attack_parameters.ammo_type.action.action_delivery
+						local delivery = ((attack_params["ammo_type"] or {})["action"] or {})["action_delivery"]
+						if delivery then
+							if delivery.cooldown then
+								delivery.cooldown = delivery.cooldown / gtts_time_scale
 							end
-							if prototype["attack_parameters"]["ammo_type"]["action"]["action_delivery"]["duration"] then
-								prototype["attack_parameters"]["ammo_type"]["action"]["action_delivery"]["duration"] = prototype["attack_parameters"]["ammo_type"]["action"]["action_delivery"]["duration"] / gtts_time_scale
+							if delivery.duration then
+								delivery.duration = clamp_property(type_name, "attack_parameters.ammo_type.action.action_delivery.duration", delivery.duration / gtts_time_scale)
 							end
 						end
 					end

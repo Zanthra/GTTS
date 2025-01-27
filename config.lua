@@ -388,16 +388,36 @@ prototype_durations_recursive = {
 	--"distance_cooldown",
 }
 
+-- this could be a table, but this makes it more readable below, and the locals are immediately discarded anyway
+local int8   = {min = -2^7, max = 2^7-1} -- -128 <= x <= 127
+local int16  = {min = -2^15, max = 2^15-1} -- -32,768 <= x <= 32,767
+local int32  = {min = -2^31, max = 2^31-1} -- -2,147,483,648 <= x <= 2,147,483,647
+local int64  = {min = -2^63, max = 2^63-1} -- unused but defined in docs, -9,223,372,036,854,775,808 <= x <= 9,223,372,036,854,775,807
+local uint8  = {min = 0, max = 2^8-1} -- 0 <= x <= 255
+local uint16 = {min = 0, max = 2^16-1} -- 0 <= x <= 65,535
+local uint32 = {min = 0, max = 2^32-1} -- 0 <= x <= 4,294,967,295
+local uint64 = {min = 0, max = 2^64} --0 <= x <= 18,446,744,073,709,551,616
+
+-- keys can be just the property name, or parent_type.property name. Latter has precedence.
 prototype_values_clamp_high = {
-	time_to_live = 4294967295,
-	fade_out_duration = 255,
-	damage_interval = 4294967295,
-	time_before_removed = 4294967295,
-	duration = 4294967295,
-	life_time = 65535,
+	time_to_live = uint32.max,
+	["fire.fade_out_duration"] = uint32.max, -- shared name with different cap, so defined by type
+	["explosion.fade_out_duration"] = uint8.max,
+	damage_interval = uint32.max,
+	time_before_removed = uint32.max,
+	duration = uint32.max,
+	["artillery-projectile.duration"] = uint8.max,
+	["artillery-projectile.ease_out_duration"] = uint8.max,
+	["projectile.duration"] = uint8.max,
+	["projectile.ease_out_duration"] = uint8.max,
+	duration_in_ticks = uint32.max,
+	life_time = uint16.max,
+	spoil_ticks = uint32.max,
+	["attack_parameters.ammo_type.action.action_delivery.duration"] = uint8.max
 }
 
 
 prototype_values_clamp_low = {
 	duration = 1,
+	duration_in_ticks = 1,
 }
