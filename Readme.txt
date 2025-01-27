@@ -1,7 +1,7 @@
-GTTS 1.7.4 2024-10-27
+GTTS 1.7.7 2024-10-27
 =====================
 
-The Mod should be updated for Space Age now, although there will be more polishing to do.
+The Mod should be updated for Space Age now.
 
 This mod changes all available prototype speeds and durations to effectively change the duration of one game tick. This allows players to speed up slow factories by increasing the amount of time the game has to calculate the tick without having to delay the game, or allows the game to be played at higher framerates for players that have high refresh rate monitors.
 
@@ -24,3 +24,5 @@ Zanthra (zanthra+factoriogtts@gmail.com)
 
 Factorio Mod Portal: https://mods.factorio.com/mods/Zanthra/GTTS
 Factorio Forums: https://forums.factorio.com/viewtopic.php?f=144&t=50281
+
+Thanks to: oorzkws for updates to clamping code.

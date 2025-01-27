@@ -146,8 +146,10 @@ local function adjust_prototypes_recursive(object, type_name)
 
 						-- Handle asteroid probabilities
 						if sub_name == "asteroid_spawn_definitions" then
-							if sub_object["probability"] then
-								sub_object["probability"] = sub_object["probability"] * gtts_time_scale
+							for _,def in ipairs(sub_object) do
+								if def["probability"] then
+									def["probability"] = def["probability"] * gtts_time_scale
+								end
 							end
 						end
 						if sub_name == "perceived_performance" then
@@ -238,6 +240,7 @@ local function adjust_controller(prototype_type)
 end
 
 local function adjust_speeds()
+	log("GTTS targeting "..(60/gtts_time_scale).." UPS. Started adjusting speeds by: "..gtts_time_scale.." and durations by: "..(1/gtts_time_scale))
 
 	-- Get all prototype types from data.raw
 	for type_name, prototype_type in pairs(data.raw) do

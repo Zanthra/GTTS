@@ -1,6 +1,15 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.7.7
+Date: 2025.01.26
+  Changes:
+    - Fix error on restoring map settings.
+    - Added missing particle_horizontal_speed_deviation which could cause an error in some cases.
+    - Removed remaining references to old fluid scaling code.
+    - Added a couple additional duration.
+    - Attempt further fixes to asteroid spawn rates.
+---------------------------------------------------------------------------------------------------
 Version: 1.7.6
-Date: ???
+Date: 2025.01.26
   Changes:
     - Fixed crash with large spoil_time
     - No longer incorrectly caps explosion fade_out_duration to 255

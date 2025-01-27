@@ -2,16 +2,11 @@
 
 gtts_time_scale = 1.0
 gtts_time_scale_inverse = 1.0
-gtts_fluid_speed = false
 
 
 if settings.startup["gtts-Target-FrameRate"] and settings.startup["gtts-Target-FrameRate"].value >= 6 and settings.startup["gtts-Target-FrameRate"].value <= 480 then
 	gtts_time_scale = 60.0 / settings.startup["gtts-Target-FrameRate"].value
 	gtts_time_scale_inverse = 1.0 / gtts_time_scale
-end
-
-if settings.startup["gtts-fluid-speed"] then
-	gtts_fluid_speed = settings.startup["gtts-fluid-speed"].value
 end
 
 controller_names = {
@@ -103,6 +98,7 @@ prototype_speeds = {
 	"opening_speed",
 	"splash_speed",
 	"particle_horizontal_speed",
+	"particle_horizontal_speed_deviation",
 	"frame_main_scanner_movement_speed",
 	"stop_trigger_speed",
 	"sound_scaling_ratio",
@@ -351,11 +347,12 @@ prototype_durations_recursive = {
 	"draw_switch_tick",
 	"intermezzo_min_duration",
 	"intermezzo_max_duration",
-
 	"timestamp",
+
 	"busy_timeout_ticks",
 	"hatch_opening_ticks",
 	"end_time",
+	"start_time",
 
 	"space_platform_dump_cooldown",
 	"asteroid_collector_navmesh_refresh_tick_interval",
@@ -384,8 +381,12 @@ prototype_durations_recursive = {
 	"fissure_explosion_damage_delay_ticks",
 	"fissure_eruption_ticks",
 	"enraged_duration",
-
+	
 	--"distance_cooldown",
+
+	"fade_ticks", --Sound related
+
+	"jump_delay_ticks", -- Tesla Turret chain property.
 }
 
 -- this could be a table, but this makes it more readable below, and the locals are immediately discarded anyway
@@ -413,7 +414,8 @@ prototype_values_clamp_high = {
 	duration_in_ticks = uint32.max,
 	life_time = uint16.max,
 	spoil_ticks = uint32.max,
-	["attack_parameters.ammo_type.action.action_delivery.duration"] = uint8.max
+	["attack_parameters.ammo_type.action.action_delivery.duration"] = uint8.max,
+	flicker_interval = uint8.max,
 }
 
 

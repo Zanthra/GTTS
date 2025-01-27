@@ -49,7 +49,7 @@ local function update_GTTS_setting(setting, save, targetvariable, speed)
         end
     else
         if storage[save] then
-            t[k] = global[save]
+            t[k] = storage[save]
             storage[save] = nil
         end
     end
